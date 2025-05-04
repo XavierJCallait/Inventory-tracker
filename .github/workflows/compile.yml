@@ -1,0 +1,21 @@
+name: Compile Project
+
+on:
+  pull_request: 
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '24'
+
+      - name: Compile Java project
+        run: javac -d out -sourcepath src src/app/InventoryApp.java
