@@ -8,7 +8,7 @@ public class Shirt extends Clothes {
     private String fitType;
     private String patternType;
 
-    public Shirt(long quantity, String price, String location, String size, String type, String color, String material, String sleeveLength, String collarType, String fitType, String patternType) {
+    public Shirt(long quantity, Double price, String location, String size, String type, String color, String material, String sleeveLength, String collarType, String fitType, String patternType) {
         super(quantity, price, location, size, type, color, material);
         this.sleeveLength = sleeveLength;
         this.collarType = collarType;

@@ -1,1 +1,10 @@
-out/
+# environment files
+*.properties
+.env
+env.*
+
+# output directory of mvn
+target/
+
+# mvn files
+.mvn

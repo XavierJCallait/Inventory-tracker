@@ -11,7 +11,7 @@ public class Food extends Product {
     private Boolean isExpired;
     private Boolean isOrganic;
 
-    public Food(long quantity, String price, String location, String type, String expirationDate, String storageTemperature, String nutritionValue, String packageType, Boolean isExpired, Boolean isOrganic) {
+    public Food(long quantity, Double price, String location, String type, String expirationDate, String storageTemperature, String nutritionValue, String packageType, Boolean isExpired, Boolean isOrganic) {
         super(type, price, "Food", location, quantity);
         this.type = type;
         this.expirationDate = expirationDate;

@@ -14,8 +14,19 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: 'oracle'
           java-version: '24'
+      
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.11
 
-      - name: Compile Java project
-        run: javac -d out -sourcepath src src/app/InventoryApp.java
+      - name: Compile project
+        run: mvn clean validate compile
+
+      # - name: Run tests
+      #   run: mvn test
+
+      - name: Run application
+        run: mvn exec:java
