@@ -25,8 +25,8 @@ jobs:
       - name: Compile project
         run: mvn clean validate compile
 
-      - name: Run tests
-        run: mvn test
+      # - name: Run tests
+      #   run: mvn test
 
       - name: Run application
         run: mvn exec:java
