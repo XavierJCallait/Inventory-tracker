@@ -4,13 +4,13 @@ import java.util.UUID;
 
 public class Product {
     private String name;
-    private String price;
+    private Double price;
     private String category;
     private String location;
     private long quantity;
     private final UUID identifier;
 
-    public Product(String name, String price, String category, String location, long quantity) {
+    public Product(String name, Double price, String category, String location, long quantity) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
@@ -35,11 +35,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return this.price;
     }
 
-    public void changePrice(String price) {
+    public void changePrice(Double price) {
         this.price = price;
     }
 

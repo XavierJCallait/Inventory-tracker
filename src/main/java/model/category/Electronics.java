@@ -7,7 +7,7 @@ public class Electronics extends Product {
     private String type;
     private String power;
 
-    public Electronics(long quantity, String price, String location, String size, String type, String power) {
+    public Electronics(long quantity, Double price, String location, String size, String type, String power) {
         super(size + type + power, price, "Electronics", location, quantity);
         this.size = size;
         this.type = type;
