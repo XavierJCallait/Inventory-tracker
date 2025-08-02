@@ -7,6 +7,13 @@ on:
 jobs:
   compile:
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: "--sun-misc-unsafe-memory-access=allow"
+      SERVER_URL: ${{ secrets.SERVER_URL }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_URL: ${{ secrets.DB_URL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
