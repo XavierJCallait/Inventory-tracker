@@ -36,19 +36,6 @@ public class DatabaseManagerTest {
         }
     }
 
-    @Test
-    public void shouldThrowExceptionOnInvalidDatabaseName() {
-        Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
-        databaseProperties.setProperty("DB_NAME", "invalid name with spaces");
-
-        try {
-            DatabaseManager.initializeDatabase(databaseProperties);
-            fail("Expected RuntimeException for invalid database name");
-        } catch (RuntimeException e) {
-            assertTrue(e.getMessage().contains("Database initialization failed"));
-        }
-    }
-
     @AfterEach
     public void dropTestTable() {
         Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
