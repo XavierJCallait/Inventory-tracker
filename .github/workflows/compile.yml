@@ -33,7 +33,7 @@ jobs:
     
     steps:
       - name: Setup Environment
-        uses: ./.github/actions/setup-maven-java.yml
+        uses: ./.github/actions/setup-env
         with:
           maven-version: '3.9.11'
           java-version: '24'
