@@ -20,7 +20,7 @@ jobs:
           java-version: '24'
 
       - name: Run Spotless
-        run: mvn --batch-mode spotless:check
+        run: mvn --batch-mode -q spotless:check
 
   lint:
     name: Lint code using Spotbugs
@@ -37,10 +37,10 @@ jobs:
         java-version: '24'
 
     - name: Run Spotbugs
-      run: mvn --batch-mode spotbugs:check
+      run: mvn --batch-mode -q spotbugs:check
 
-  call-compile-run:
-    name: Call compile-run
+  call-verify-run:
+    name: Call verify-run
     needs: [format, lint]
-    uses: ./.github/workflows/compile-run.yml
+    uses: ./.github/workflows/verify-run.yml
     secrets: inherit
