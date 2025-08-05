@@ -1,12 +1,11 @@
-name: Compile Project
+name: Compile and run project
 
 on:
   workflow_call:
 
 jobs:
   compile:
-    name: Compile and Test Project
-    environment: "Continuous Integration"
+    name: Compile and run project
     runs-on: ubuntu-latest
 
     services:
