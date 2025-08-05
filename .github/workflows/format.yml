@@ -27,8 +27,8 @@ jobs:
     needs: format
     if: ${{ success() }}
     uses: ./.github/workflows/compile.yml
-    environment: "Continuous Integration"
-    secrets:
+    # environment: "Continuous Integration"
+    with:
       SERVER_URL: ${{ secrets.SERVER_URL }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
