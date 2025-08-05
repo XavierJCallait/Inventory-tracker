@@ -1,0 +1,35 @@
+name: Setup Maven and Java
+description: Common setups for Maven and Java
+
+inputs:
+  maven-version:
+    description: Version of Maven to set up
+    default: '3.9.11'
+  java-version:
+    description: Version of Java to set up
+    default: '24'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+  
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'oracle'
+        java-version: ${{ inputs.java-version }}
+
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: ${{ inputs.maven-version }}
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          naven-${{ runner.os }}-

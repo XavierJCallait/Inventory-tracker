@@ -1,11 +1,11 @@
 name: Compile Project
 
 on:
-  pull_request: 
-    types: [opened, edited, reopened, synchronize]
+  workflow_call:
 
 jobs:
   compile:
+    name: Compile and Test Project
     environment: "Continuous Integration"
     runs-on: ubuntu-latest
 
@@ -30,20 +30,13 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_URL: ${{ secrets.DB_URL }}
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Setup Environment
+        uses: ./.github/actions/setup-maven-java.yml
         with:
-          distribution: 'oracle'
+          maven-version: '3.9.11'
           java-version: '24'
-      
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.11
 
       - name: Compile project
         run: mvn clean validate compile

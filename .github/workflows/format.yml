@@ -1,0 +1,26 @@
+name: Run Spotless formatter
+
+on:
+  pull_requests:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  format:
+    name: Format Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/setup-maven-java.yml
+        with:
+          maven-version: '3.9.11'
+          java-version: '24'
+
+      - name: Run Spotless
+        run: mvn spotless:check
+
+  call-tests-compile:
+    name: Call Tests Compile
+    needs: format
+    if: ${{ success() }}
+    uses: ./.github/workflows/compile.yml
