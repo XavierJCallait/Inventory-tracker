@@ -6,6 +6,7 @@ on:
 
 jobs:
   compile:
+    environment: "Continuous Integration"
     runs-on: ubuntu-latest
     env:
       MAVEN_OPTS: "--sun-misc-unsafe-memory-access=allow"
