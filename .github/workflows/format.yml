@@ -8,7 +8,6 @@ jobs:
   format:
     name: Format Code
     runs-on: ubuntu-latest
-    environment: "Continuous Integration"
 
     steps:
       - name: Checkout code
@@ -27,6 +26,7 @@ jobs:
     name: Call Tests Compile
     needs: format
     if: ${{ success() }}
+    environment: "Continuous Integration"
     uses: ./.github/workflows/compile.yml
     with:
       SERVER_URL: ${{ secrets.SERVER_URL }}
