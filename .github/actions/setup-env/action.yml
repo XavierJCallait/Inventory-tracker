@@ -29,4 +29,4 @@ runs:
         path: ~/.m2/repository
         key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
-          naven-${{ runner.os }}-
+          maven-${{ runner.os }}-

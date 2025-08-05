@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Properties;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -46,7 +47,7 @@ public class HibernateUtil {
   }
 
   /**
-   * Returns a session instance created by SessionFactory.
+   * Returns a session instance created by SessionFactory if initialized. The session must be closed after use.
    *
    * @return Session instance.
    * @throws IllegalStateException if the SessionFactory instance is not initialized.
