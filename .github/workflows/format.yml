@@ -1,7 +1,7 @@
 name: Run Spotless formatter
 
 on:
-  pull_requests:
+  pull_request:
     types: [opened, edited, reopened, synchronize]
 
 jobs:
