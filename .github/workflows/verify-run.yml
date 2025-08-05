@@ -1,12 +1,11 @@
-name: Compile Project
+name: Verify and run project
 
 on:
-  pull_request: 
-    types: [opened, edited, reopened, synchronize]
+  workflow_call:
 
 jobs:
-  compile:
-    environment: "Continuous Integration"
+  verify-run:
+    name: Verify and run project
     runs-on: ubuntu-latest
 
     services:
@@ -30,26 +29,19 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_URL: ${{ secrets.DB_URL }}
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
         with:
-          distribution: 'oracle'
+          maven-version: '3.9.11'
           java-version: '24'
-      
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v5
-        with:
-          maven-version: 3.9.11
 
-      - name: Compile project
-        run: mvn clean validate compile
+      - name: Verify project
+        run: mvn --batch-mode -q verify
 
-      - name: Run tests
-        run: mvn test
-
-      - name: Run application
-        run: mvn exec:java
+      - name: Run project
+        run: mvn --batch-mode -q exec:java

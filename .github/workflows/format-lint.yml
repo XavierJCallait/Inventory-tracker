@@ -1,0 +1,46 @@
+name: Run formatter and linter
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  format:
+    name: Format code using Spotless
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/actions/setup-env
+        with:
+          maven-version: '3.9.11'
+          java-version: '24'
+
+      - name: Run Spotless
+        run: mvn --batch-mode -q spotless:check
+
+  lint:
+    name: Lint code using Spotbugs
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup environment
+      uses: ./.github/actions/setup-env
+      with:
+        maven-version: '3.9.11'
+        java-version: '24'
+
+    - name: Run Spotbugs
+      run: mvn --batch-mode -q spotbugs:check
+
+  call-verify-run:
+    name: Call verify-run
+    needs: [format, lint]
+    uses: ./.github/workflows/verify-run.yml
+    secrets: inherit
