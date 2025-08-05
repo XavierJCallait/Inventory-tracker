@@ -41,10 +41,10 @@ jobs:
           java-version: '24'
 
       - name: Compile project
-        run: mvn clean validate compile
+        run: mvn --batch-mode clean validate compile
 
       - name: Run tests
-        run: mvn test
+        run: mvn --batch-mode test
 
       - name: Run application
-        run: mvn exec:java
+        run: mvn --batch-mode exec:java

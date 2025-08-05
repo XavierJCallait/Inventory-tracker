@@ -20,10 +20,10 @@ jobs:
           java-version: '24'
 
       - name: Run Spotless
-        run: mvn spotless:check
+        run: mvn --batch-mode spotless:check
 
   lint:
-    name: Lint code
+    name: Lint code using Spotbugs
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         java-version: '24'
 
     - name: Run Spotbugs
-      run: mvn spotbugs:check
+      run: mvn --batch-mode spotbugs:check
 
   call-compile-run:
     name: Call compile-run
