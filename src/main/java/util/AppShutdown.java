@@ -7,10 +7,8 @@ public class AppShutdown {
    * Cleans up resources and shuts down the application gracefully. Should only be called once
    * during application shutdown.
    */
-  public static void Shutdown() {
+  public static void shutdown() {
     AbandonedConnectionCleanupThread.checkedShutdown();
-    if (HibernateUtil.getSessionFactory() != null) {
-      HibernateUtil.getSessionFactory().close();
-    }
+    HibernateUtil.closeSessionFactory();
   }
 }

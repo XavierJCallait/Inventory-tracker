@@ -57,6 +57,8 @@ public class EnvironmentVariableInitializer {
    * @return Properties object containing validated environment variables.
    */
   public static Properties getEnvironmentProperties() {
-    return environmentProperties;
+    Properties returnableProperties = new Properties();
+    returnableProperties.putAll(environmentProperties);
+    return returnableProperties;
   }
 }

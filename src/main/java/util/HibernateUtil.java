@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Properties;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -25,8 +26,7 @@ public class HibernateUtil {
     }
 
     try {
-      Configuration configuration =
-          new Configuration().configure(); // load hibernate.cfg.xml if needed
+      Configuration configuration = new Configuration().configure();
       configuration.setProperty(
           "hibernate.connection.url", databaseProperties.getProperty("DB_URL"));
       configuration.setProperty(
@@ -46,16 +46,23 @@ public class HibernateUtil {
   }
 
   /**
-   * Returns the SessionFactory instance.
+   * Returns a session instance created by SessionFactory.
    *
-   * @return SessionFactory instance.
+   * @return Session instance.
    * @throws IllegalStateException if the SessionFactory instance is not initialized.
    */
-  public static SessionFactory getSessionFactory() {
+  public static Session getSessionFromFactory() {
     if (sessionFactory == null) {
       throw new IllegalStateException(
           "SessionFactory is not initialized. Call initializeSessionFactory() first.");
     }
-    return sessionFactory;
+    return sessionFactory.openSession();
+  }
+
+  /** Closes the SessionFactory if it is initialized. */
+  public static void closeSessionFactory() {
+    if (sessionFactory != null) {
+      sessionFactory.close();
+    }
   }
 }

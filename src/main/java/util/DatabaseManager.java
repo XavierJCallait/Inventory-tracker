@@ -10,11 +10,18 @@ import java.util.List;
 import java.util.Properties;
 
 public class DatabaseManager {
+  /**
+   * Binds parameters to a prepared statement.
+   *
+   * @param preparedStatement The prepared statement to bind parameters to.
+   * @param parameters List of parameters to bind.
+   * @throws RuntimeException if binding parameters fails.
+   */
   private static void bindParametersToStatement(
-      PreparedStatement statement, List<Object> parameters) {
+      PreparedStatement preparedStatement, List<Object> parameters) {
     try {
       for (int i = 0; i < parameters.size(); i++) {
-        statement.setObject(i + 1, parameters.get(i));
+        preparedStatement.setObject(i + 1, parameters.get(i));
       }
     } catch (SQLException e) {
       System.err.println("Failed to bind parameters to statement");
@@ -35,13 +42,21 @@ public class DatabaseManager {
     executeUpdateStatement(databaseProperties, createDatabaseSQLQuery, "SERVER_URL");
   }
 
+  /**
+   * Executes an update statement on the database using the provided properties and query.
+   *
+   * @param databaseProperties Properties containing validated database connection details.
+   * @param updateQuery The SQL query to execute.
+   * @param URLType The type of URL to use (either "DB_URL" or "SERVER_URL").
+   * @throws RuntimeException if the update execution fails.
+   */
   public static void executeUpdateStatement(
       Properties databaseProperties, String updateQuery, String URLType) {
     String url = databaseProperties.getProperty(URLType);
     String user = databaseProperties.getProperty("DB_USER");
     String password = databaseProperties.getProperty("DB_PASSWORD");
-    try (Connection connection = DriverManager.getConnection(url, user, password)) {
-      Statement statement = connection.createStatement();
+    try (Connection connection = DriverManager.getConnection(url, user, password);
+        Statement statement = connection.createStatement()) {
       statement.executeUpdate(updateQuery);
     } catch (Exception e) {
       System.err.println("Failed to execute update statement: " + updateQuery);
@@ -49,13 +64,22 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * Executes a prepared statement with the provided parameters and returns the result set.
+   *
+   * @param databaseProperties Properties containing validated database connection details.
+   * @param updateQuery The SQL query to execute.
+   * @param parameters List of parameters to bind to the prepared statement.
+   * @return ResultSet containing the results of the executed query.
+   * @throws RuntimeException if the query execution fails.
+   */
   public static ResultSet executeQueryPreparedStatement(
       Properties databaseProperties, String updateQuery, List<Object> parameters) {
     String url = databaseProperties.getProperty("DB_URL");
     String user = databaseProperties.getProperty("DB_USER");
     String password = databaseProperties.getProperty("DB_PASSWORD");
-    try (Connection connection = DriverManager.getConnection(url, user, password)) {
-      PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+    try (Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
       bindParametersToStatement(preparedStatement, parameters);
       return preparedStatement.executeQuery();
     } catch (Exception e) {
