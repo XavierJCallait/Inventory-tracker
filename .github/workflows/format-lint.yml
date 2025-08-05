@@ -36,6 +36,9 @@ jobs:
         maven-version: '3.9.11'
         java-version: '24'
 
+    - name: Run Spotbugs
+      run: mvn spotbugs:check
+
   call-compile-run:
     name: Call compile-run
     needs: [format, lint]
