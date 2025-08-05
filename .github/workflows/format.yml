@@ -41,5 +41,3 @@ jobs:
     needs: [format, lint]
     uses: ./.github/workflows/compile.yml
     secrets: inherit
-    with:
-      environment: "Continuous Integration"

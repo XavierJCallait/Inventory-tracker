@@ -2,12 +2,6 @@ name: Compile Project
 
 on:
   workflow_call:
-    inputs:
-      environment:
-        description: The environment for the workflow
-        required: true
-        type: string
-    secrets:
 
 jobs:
   compile:
