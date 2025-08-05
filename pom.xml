@@ -102,7 +102,7 @@
   	  </executions>
   	  <configuration>
   	    <effort>Max</effort>
-  	    <threshold>Low</threshold>
+  	    <threshold>Medium</threshold>
   	    <failOnError>true</failOnError>
   	  </configuration>
     </plugin>
