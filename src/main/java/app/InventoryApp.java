@@ -13,6 +13,7 @@ import util.HibernateUtil;
 
 public class InventoryApp {
     public static void main(String[] args) {
+        System.out.println("Starting Inventory Application...");
         Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
         DatabaseManager.initializeDatabase(databaseProperties);
         HibernateUtil.initializeSessionFactory(databaseProperties);
@@ -23,5 +24,6 @@ public class InventoryApp {
         inventory.addProduct(product.getIdentifier(), product);
 
         AppShutdown.Shutdown();
+        System.out.println("Inventory Application has been shut down.");
     }
 }
