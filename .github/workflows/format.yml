@@ -26,9 +26,9 @@ jobs:
     name: Call Tests Compile
     needs: format
     if: ${{ success() }}
-    environment: "Continuous Integration"
     uses: ./.github/workflows/compile.yml
-    with:
+    environment: "Continuous Integration"
+    secrets:
       SERVER_URL: ${{ secrets.SERVER_URL }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USER: ${{ secrets.DB_USER }}
