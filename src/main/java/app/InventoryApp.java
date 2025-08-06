@@ -2,6 +2,7 @@ package app;
 
 import java.util.Properties;
 import model.Product;
+import model.Vendor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import service.Inventory;
@@ -20,7 +21,11 @@ public class InventoryApp {
     HibernateUtil.initializeSessionFactory(databaseProperties);
 
     Inventory inventory = new Inventory();
-    Product product = new Product("laptop", 1000.00, "Electronics", "Warehouse A", 50);
+    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
+    Vendor vendor = new Vendor("VendorName");
+    Object extra = new Object();
+    Product<Object> product =
+        new Product<>(1L, 1000.00, "Name", "Location", dimensions, vendor, extra);
     inventory.addProduct(product.getIdentifier(), product);
     if (inventory.getProduct(product.getIdentifier()) != null) {
       logger.debug("Product is in inventory!");

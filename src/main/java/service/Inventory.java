@@ -7,23 +7,23 @@ import model.Product;
 
 public class Inventory {
   private long totalQuantityProducts = 0;
-  private final Map<UUID, Product> products = new HashMap<>();
+  private final Map<UUID, Product<?>> products = new HashMap<>();
 
   public Inventory() {
     // Default constructor
   }
 
-  public void addProduct(UUID identifier, Product product) {
+  public void addProduct(UUID identifier, Product<?> product) {
     this.products.put(identifier, product);
     this.totalQuantityProducts += product.getQuantity();
   }
 
-  public void removeProduct(UUID identifier, Product product) {
+  public void removeProduct(UUID identifier, Product<?> product) {
     this.products.remove(identifier);
     this.totalQuantityProducts -= product.getQuantity();
   }
 
-  public Product getProduct(UUID identifier) {
+  public Product<?> getProduct(UUID identifier) {
     return this.products.get(identifier);
   }
 
