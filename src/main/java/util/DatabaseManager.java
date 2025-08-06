@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseManager {
+  private static final Logger logger = LoggerFactory.getLogger(DatabaseManager.class);
+
   /**
    * Initializes the database by loading validated properties and creating a connection. If the
    * desired database does not exist, it will be created.
@@ -14,6 +18,7 @@ public class DatabaseManager {
    * @throws RuntimeException if the database initialization fails.
    */
   public static void initializeDatabase(Properties databaseProperties) {
+    logger.debug("Initializing database...");
     String databaseName = databaseProperties.getProperty("DB_NAME");
     String createDatabaseSQLQuery = "CREATE DATABASE IF NOT EXISTS `" + databaseName + "`";
     executeUpdateStatement(databaseProperties, createDatabaseSQLQuery, "SERVER_URL");
