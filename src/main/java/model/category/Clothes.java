@@ -1,41 +1,42 @@
 package model.category;
 
 import model.Product;
+import model.Vendor;
+import model.category.types.ClothesTypes;
+import model.category.types.ClothesTypes.MaterialTypes;
+import model.category.types.ClothesTypes.SizeTypes;
 
-public class Clothes extends Product {
-  private String size;
-  private String type;
-  private String color;
-  private String material;
+public class Clothes extends Product<ClothesTypes.Types> {
+  private final String color;
+  private final SizeTypes size;
+  private final MaterialTypes material;
 
   public Clothes(
-      long quantity,
+      Long quantity,
       Double price,
       String location,
-      String size,
-      String type,
+      String name,
+      Dimensions dimensions,
+      Vendor vendor,
+      ClothesTypes.Types type,
       String color,
-      String material) {
-    super(size + color + type, price, "Clothes", location, quantity);
-    this.size = size;
-    this.type = type;
+      SizeTypes size,
+      MaterialTypes material) {
+    super(quantity, price, location, name, dimensions, vendor, type);
     this.color = color;
+    this.size = size;
     this.material = material;
-  }
-
-  public String getSize() {
-    return this.size;
-  }
-
-  public String getType() {
-    return this.type;
   }
 
   public String getColor() {
     return this.color;
   }
 
-  public String getMaterial() {
+  public SizeTypes getSize() {
+    return this.size;
+  }
+
+  public MaterialTypes getMaterial() {
     return this.material;
   }
 }

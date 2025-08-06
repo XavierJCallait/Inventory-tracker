@@ -2,36 +2,41 @@ package model;
 
 import java.util.UUID;
 
-public class Product {
-  private String name;
+public class Product<T> {
+  private Long quantity;
   private Double price;
-  private String category;
   private String location;
-  private long quantity;
+  private final String name;
   private final UUID identifier;
+  private final Dimensions dimensions;
+  private final Vendor vendor;
+  protected T type;
 
-  public Product(String name, Double price, String category, String location, long quantity) {
-    this.name = name;
+  public record Dimensions(Double length, Double width, Double height) {}
+
+  public Product(
+      Long quantity,
+      Double price,
+      String name,
+      String location,
+      Dimensions dimensions,
+      Vendor vendor,
+      T type) {
     this.quantity = quantity;
     this.price = price;
-    this.category = category;
-    this.identifier = UUID.randomUUID();
     this.location = location;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
-  public void changeName(String name) {
     this.name = name;
+    this.identifier = UUID.randomUUID();
+    this.dimensions = dimensions;
+    this.vendor = vendor;
+    this.type = type;
   }
 
-  public long getQuantity() {
+  public Long getQuantity() {
     return this.quantity;
   }
 
-  public void changeQuantity(long quantity) {
+  public void changeQuantity(Long quantity) {
     this.quantity = quantity;
   }
 
@@ -43,23 +48,31 @@ public class Product {
     this.price = price;
   }
 
-  public String getCategory() {
-    return this.category;
-  }
-
-  public void changeCategory(String category) {
-    this.category = category;
-  }
-
-  public UUID getIdentifier() {
-    return this.identifier;
-  }
-
   public String getLocation() {
     return this.location;
   }
 
   public void changeLocation(String location) {
     this.location = location;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public UUID getIdentifier() {
+    return this.identifier;
+  }
+
+  public Dimensions getDimensions() {
+    return this.dimensions;
+  }
+
+  public Vendor getVendor() {
+    return this.vendor;
+  }
+
+  public T getType() {
+    return this.type;
   }
 }
