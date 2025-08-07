@@ -1,6 +1,8 @@
 package util;
 
 import java.util.Properties;
+import model.Product;
+import model.Vendor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -37,6 +39,11 @@ public class HibernateUtil {
           "hibernate.connection.username", databaseProperties.getProperty("DB_USER"));
       configuration.setProperty(
           "hibernate.connection.password", databaseProperties.getProperty("DB_PASSWORD"));
+      configuration.addAnnotatedClass(Vendor.class);
+      configuration.addAnnotatedClass(Product.class);
+      configuration.addAnnotatedClass(model.category.Clothes.class);
+      configuration.addAnnotatedClass(model.category.Food.class);
+      configuration.addAnnotatedClass(model.category.Electronics.class);
 
       sessionFactory =
           configuration.buildSessionFactory(

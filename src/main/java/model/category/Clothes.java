@@ -1,41 +1,69 @@
 package model.category;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import java.util.UUID;
 import model.Product;
+import model.Vendor;
+import model.category.types.ClothesTypes;
+import model.category.types.ClothesTypes.MaterialTypes;
+import model.category.types.ClothesTypes.SizeTypes;
+import model.category.types.ClothesTypes.Types;
 
+@Entity
+@DiscriminatorValue("clothes")
 public class Clothes extends Product {
-  private String size;
-  private String type;
   private String color;
-  private String material;
+
+  @Enumerated(EnumType.STRING)
+  @Column(length = 15)
+  private SizeTypes size;
+
+  @Enumerated(EnumType.STRING)
+  @Column(length = 15)
+  private MaterialTypes material;
+
+  public Clothes() {}
 
   public Clothes(
-      long quantity,
+      Long quantity,
       Double price,
+      String name,
+      UUID identifier,
       String location,
-      String size,
-      String type,
+      Dimensions dimensions,
+      Vendor vendor,
       String color,
-      String material) {
-    super(size + color + type, price, "Clothes", location, quantity);
-    this.size = size;
-    this.type = type;
+      SizeTypes size,
+      MaterialTypes material,
+      Types types) {
+    super(quantity, price, name, identifier, location, dimensions, vendor);
     this.color = color;
+    this.size = size;
     this.material = material;
+    this.setClothesType(types);
   }
 
-  public String getSize() {
-    return this.size;
+  public ClothesTypes.Types getClothesType() {
+    return ClothesTypes.Types.fromDbValue(super.getType());
   }
 
-  public String getType() {
-    return this.type;
+  public final void setClothesType(ClothesTypes.Types clothesType) {
+    super.setType(clothesType);
   }
 
   public String getColor() {
     return this.color;
   }
 
-  public String getMaterial() {
+  public SizeTypes getSize() {
+    return this.size;
+  }
+
+  public MaterialTypes getMaterial() {
     return this.material;
   }
 }
