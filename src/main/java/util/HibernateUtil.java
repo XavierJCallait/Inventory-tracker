@@ -1,14 +1,16 @@
 package util;
 
 import java.util.Properties;
-import model.Product;
-import model.Vendor;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.Product;
+import model.Vendor;
 
 public class HibernateUtil {
   private static final Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
@@ -44,8 +46,6 @@ public class HibernateUtil {
       configuration.addAnnotatedClass(model.category.Clothes.class);
       configuration.addAnnotatedClass(model.category.Food.class);
       configuration.addAnnotatedClass(model.category.Electronics.class);
-
-      logger.info("Properties: {}", configuration.getProperties());
 
       sessionFactory =
           configuration.buildSessionFactory(
