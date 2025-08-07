@@ -1,35 +1,68 @@
 package model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.util.UUID;
+import model.category.types.ProductTypeEnum;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-public class Product<T> {
+@Entity
+@Table(name = "products")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "category")
+public class Product {
   private Long quantity;
   private Double price;
   private String location;
-  private final String name;
-  private final UUID identifier;
-  private final Dimensions dimensions;
-  private final Vendor vendor;
-  protected T type;
 
-  public record Dimensions(Double length, Double width, Double height) {}
+  @Column(nullable = false)
+  private String name;
+
+  @JdbcTypeCode(SqlTypes.VARCHAR)
+  @Column(length = 36)
+  @Id
+  private UUID identifier;
+
+  @Embedded private Dimensions dimensions;
+
+  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @JoinColumn(name = "vendor_id", nullable = false)
+  private Vendor vendor;
+
+  @Column(nullable = false, length = 15)
+  private String type;
+
+  @Embeddable
+  public static record Dimensions(Double length, Double width, Double height) {}
+
+  public Product() {}
 
   public Product(
       Long quantity,
       Double price,
       String name,
+      UUID identifier,
       String location,
       Dimensions dimensions,
-      Vendor vendor,
-      T type) {
+      Vendor vendor) {
     this.quantity = quantity;
     this.price = price;
     this.location = location;
     this.name = name;
-    this.identifier = UUID.randomUUID();
+    this.identifier = identifier;
     this.dimensions = dimensions;
     this.vendor = vendor;
-    this.type = type;
   }
 
   public Long getQuantity() {
@@ -68,11 +101,15 @@ public class Product<T> {
     return this.dimensions;
   }
 
-  public Vendor getVendor() {
-    return this.vendor;
+  public UUID getVendorID() {
+    return this.vendor.getIdentifier();
   }
 
-  public T getType() {
+  protected void setType(ProductTypeEnum productType) {
+    this.type = productType.getDbValue();
+  }
+
+  protected String getType() {
     return this.type;
   }
 }
