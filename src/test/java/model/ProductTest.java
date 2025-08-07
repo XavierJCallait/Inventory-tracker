@@ -1,9 +1,9 @@
 package model;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for Product model. */
@@ -25,7 +25,7 @@ class ProductTest {
   }
 
   @Test
-  void shouldUpateProduct() {
+  void shouldUpdateProduct() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
     Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
     Product product =

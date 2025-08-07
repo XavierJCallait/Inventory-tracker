@@ -59,7 +59,7 @@ public class ClothesTypes {
     SILK,
     LINEN,
     VELVET,
-    DEMIN,
+    DENIM,
     CORDUROY,
     SATIN,
     FLEECE,
