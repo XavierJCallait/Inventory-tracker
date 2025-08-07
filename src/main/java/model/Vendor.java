@@ -1,13 +1,49 @@
 package model;
 
-public class Vendor {
-  private final String vendorName;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-  public Vendor(String vendorName) {
+@Entity
+@Table(name = "vendors")
+public class Vendor {
+  @Column(nullable = false, length = 100, unique = true)
+  private String vendorName;
+
+  @JdbcTypeCode(SqlTypes.VARCHAR)
+  @Column(length = 36)
+  @Id
+  private UUID identifier;
+
+  @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY)
+  private Set<Product> products = new HashSet<>();
+
+  public Vendor() {}
+
+  public Vendor(String vendorName, UUID identifier) {
     this.vendorName = vendorName;
+    // this.vendorInventory = new Inventory();
+    this.identifier = identifier;
   }
 
   public String getVendorName() {
-    return vendorName;
+    return this.vendorName;
+  }
+
+  public UUID getIdentifier() {
+    return this.identifier;
+  }
+
+  public Set<Product> getProducts() {
+    return Collections.unmodifiableSet(this.products);
   }
 }
