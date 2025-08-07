@@ -1,15 +1,17 @@
 package model.category;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.Instant;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
 import model.Product;
 import model.Vendor;
 import model.category.Food.NutritionValue;
 import model.category.types.FoodTypes;
-import org.junit.jupiter.api.Test;
 
 class FoodTest {
   @Test
@@ -40,7 +42,7 @@ class FoodTest {
     assertEquals("Location", milk.getLocation());
     assertEquals(dimensions, milk.getDimensions());
     assertEquals(vendor.getIdentifier(), milk.getVendorID());
-    assertEquals(true, milk.getIsOrganic());
+    assertTrue(milk.getIsOrganic());
     assertEquals(FoodTypes.StorageTemperatureTypes.REFRIGERATED, milk.getStorageTemperatureType());
     assertEquals(FoodTypes.PackageTypes.JUG, milk.getPackageType());
     assertNotNull(milk.getPackagedDate());
@@ -97,6 +99,6 @@ class FoodTest {
             Instant.now().minusSeconds(60),
             nutritionValue,
             FoodTypes.Types.DAIRY);
-    assertEquals(true, milk.isExpired());
+    assertTrue(milk.isExpired());
   }
 }
