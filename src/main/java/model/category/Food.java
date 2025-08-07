@@ -1,47 +1,78 @@
 package model.category;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.time.Instant;
+import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.FoodTypes;
 import model.category.types.FoodTypes.PackageTypes;
 import model.category.types.FoodTypes.StorageTemperatureTypes;
+import model.category.types.FoodTypes.Types;
 
-public class Food extends Product<FoodTypes.Types> {
-  private final Boolean isOrganic;
-  private final StorageTemperatureTypes storageTemperatureType;
-  private final PackageTypes packageType;
-  private final Instant expirationDate;
-  private final Instant packagedDate = Instant.now();
-  private final NutritionValue nutritionValue;
+@Entity
+@DiscriminatorValue("food")
+public class Food extends Product {
+  private Boolean isOrganic;
 
-  public record NutritionValue(
+  @Enumerated(EnumType.STRING)
+  @Column(length = 15)
+  private StorageTemperatureTypes storageTemperatureType;
+
+  @Enumerated(EnumType.STRING)
+  @Column(length = 15)
+  private PackageTypes packageType;
+
+  private Instant expirationDate;
+  private Instant packagedDate = Instant.now();
+
+  @Embedded private NutritionValue nutritionValue;
+
+  @Embeddable
+  public static record NutritionValue(
       Integer calories,
       Double servingSizeGrams,
       Double proteinGrams,
       Double carbsGrams,
       Double fatsGrams) {}
 
+  public Food() {}
+
   public Food(
       Long quantity,
       Double price,
-      String location,
       String name,
+      UUID identifier,
+      String location,
       Dimensions dimensions,
       Vendor vendor,
-      FoodTypes.Types type,
-      Boolean isExpired,
       Boolean isOrganic,
       StorageTemperatureTypes storageTemperatureType,
       PackageTypes packageType,
       Instant expirationDate,
-      NutritionValue nutritionValue) {
-    super(quantity, price, name, location, dimensions, vendor, type);
+      NutritionValue nutritionValue,
+      Types type) {
+    super(quantity, price, name, identifier, location, dimensions, vendor);
     this.isOrganic = isOrganic;
     this.storageTemperatureType = storageTemperatureType;
     this.packageType = packageType;
     this.expirationDate = expirationDate;
     this.nutritionValue = nutritionValue;
+    this.setFoodType(type);
+  }
+
+  public FoodTypes.Types getFoodType() {
+    return FoodTypes.Types.fromDbValue(super.getType());
+  }
+
+  public final void setFoodType(FoodTypes.Types foodType) {
+    super.setType(foodType);
   }
 
   public Boolean getIsOrganic() {
