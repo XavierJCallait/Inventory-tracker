@@ -1,8 +1,8 @@
 package app.util;
 
-import java.util.Properties;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for EnvironmentVariableInitializer. */
@@ -12,9 +12,14 @@ public class EnvironmentVariableInitializerTest {
     Properties properties = EnvironmentVariableInitializer.getEnvironmentProperties();
     assertTrue(properties.containsKey("SERVER_URL"), "SERVER_URL must be set");
     assertTrue(properties.containsKey("DATABASE_NAME"), "DATABASE_NAME must be set");
-    assertTrue(properties.containsKey("SPRING_DATASOURCE_USERNAME"), "SPRING_DATASOURCE_USERNAME must be set");
-    assertTrue(properties.containsKey("SPRING_DATASOURCE_PASSWORD"), "SPRING_DATASOURCE_PASSWORD must be set");
-    assertTrue(properties.containsKey("SPRING_DATASOURCE_URL"), "SPRING_DATASOURCE_URL must be set");
+    assertTrue(
+        properties.containsKey("SPRING_DATASOURCE_USERNAME"),
+        "SPRING_DATASOURCE_USERNAME must be set");
+    assertTrue(
+        properties.containsKey("SPRING_DATASOURCE_PASSWORD"),
+        "SPRING_DATASOURCE_PASSWORD must be set");
+    assertTrue(
+        properties.containsKey("SPRING_DATASOURCE_URL"), "SPRING_DATASOURCE_URL must be set");
   }
 
   @Test
