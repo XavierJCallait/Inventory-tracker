@@ -1,5 +1,10 @@
 package model;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Embeddable;
@@ -12,10 +17,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.UUID;
 import model.category.types.ProductTypeEnum;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "products")
@@ -25,6 +27,8 @@ public class Product {
   private Long quantity;
   private Double price;
   private String location;
+
+  private Double weight;
 
   @Column(nullable = false)
   private String name;
@@ -54,13 +58,15 @@ public class Product {
       String name,
       UUID identifier,
       String location,
+      Double weight,
       Dimensions dimensions,
       Vendor vendor) {
     this.quantity = quantity;
     this.price = price;
-    this.location = location;
     this.name = name;
     this.identifier = identifier;
+    this.location = location;
+    this.weight = weight;
     this.dimensions = dimensions;
     this.vendor = vendor;
   }
@@ -111,5 +117,9 @@ public class Product {
 
   protected String getType() {
     return this.type;
+  }
+
+  public Double getWeight() {
+    return this.weight;
   }
 }
