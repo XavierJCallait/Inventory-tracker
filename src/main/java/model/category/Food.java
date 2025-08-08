@@ -1,5 +1,8 @@
 package model.category;
 
+import java.time.Instant;
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Embeddable;
@@ -7,8 +10,6 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.time.Instant;
-import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.FoodTypes;
@@ -50,6 +51,7 @@ public class Food extends Product {
       String name,
       UUID identifier,
       String location,
+      Double weight,
       Dimensions dimensions,
       Vendor vendor,
       Boolean isOrganic,
@@ -58,7 +60,7 @@ public class Food extends Product {
       Instant expirationDate,
       NutritionValue nutritionValue,
       Types type) {
-    super(quantity, price, name, identifier, location, dimensions, vendor);
+    super(quantity, price, name, identifier, location, weight, dimensions, vendor);
     this.isOrganic = isOrganic;
     this.storageTemperatureType = storageTemperatureType;
     this.packageType = packageType;

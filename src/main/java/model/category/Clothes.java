@@ -1,11 +1,12 @@
 package model.category;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ClothesTypes;
@@ -34,13 +35,14 @@ public class Clothes extends Product {
       String name,
       UUID identifier,
       String location,
+      Double weight,
       Dimensions dimensions,
       Vendor vendor,
       String color,
       SizeTypes size,
       MaterialTypes material,
       Types types) {
-    super(quantity, price, name, identifier, location, dimensions, vendor);
+    super(quantity, price, name, identifier, location, weight, dimensions, vendor);
     this.color = color;
     this.size = size;
     this.material = material;
