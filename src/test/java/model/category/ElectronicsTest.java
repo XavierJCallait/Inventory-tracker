@@ -1,14 +1,13 @@
 package model.category;
 
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ElectronicsTypes;
+import org.junit.jupiter.api.Test;
 
 public class ElectronicsTest {
   @Test

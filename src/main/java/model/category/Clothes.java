@@ -1,12 +1,11 @@
 package model.category;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ClothesTypes;

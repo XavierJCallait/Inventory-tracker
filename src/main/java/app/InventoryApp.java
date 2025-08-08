@@ -3,11 +3,6 @@ package app;
 import java.time.Instant;
 import java.util.Properties;
 import java.util.UUID;
-
-import org.hibernate.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import model.Product;
 import model.Vendor;
 import model.category.Clothes;
@@ -17,6 +12,9 @@ import model.category.Food.NutritionValue;
 import model.category.types.ClothesTypes;
 import model.category.types.ElectronicsTypes;
 import model.category.types.FoodTypes;
+import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.AppShutdown;
 import util.DatabaseManager;
 import util.EnvironmentVariableInitializer;
