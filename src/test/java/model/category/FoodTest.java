@@ -1,16 +1,17 @@
 package model.category;
 
+import java.time.Instant;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
-import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.Food.NutritionValue;
 import model.category.types.FoodTypes;
-import org.junit.jupiter.api.Test;
 
 class FoodTest {
   @Test
@@ -25,6 +26,7 @@ class FoodTest {
             "Milk",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,
@@ -39,6 +41,7 @@ class FoodTest {
     assertEquals("Milk", milk.getName());
     assertNotNull(milk.getIdentifier());
     assertEquals("Location", milk.getLocation());
+    assertEquals(10.0, milk.getWeight());
     assertEquals(dimensions, milk.getDimensions());
     assertEquals(vendor.getIdentifier(), milk.getVendorID());
     assertTrue(milk.getIsOrganic());
@@ -62,6 +65,7 @@ class FoodTest {
             "Milk",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,
@@ -90,6 +94,7 @@ class FoodTest {
             "Milk",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,

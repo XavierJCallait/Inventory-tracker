@@ -1,13 +1,14 @@
 package model.category;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ClothesTypes;
-import org.junit.jupiter.api.Test;
 
 public class ClothesTest {
   @Test
@@ -21,6 +22,7 @@ public class ClothesTest {
             "Shirt",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             "Blue",
@@ -33,6 +35,7 @@ public class ClothesTest {
     assertEquals("Shirt", shirt.getName());
     assertNotNull(shirt.getIdentifier());
     assertEquals("Location", shirt.getLocation());
+    assertEquals(10.0, shirt.getWeight());
     assertEquals(dimensions, shirt.getDimensions());
     assertEquals(vendor.getIdentifier(), shirt.getVendorID());
     assertEquals("Blue", shirt.getColor());
@@ -52,6 +55,7 @@ public class ClothesTest {
             "Shirt",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             "Blue",

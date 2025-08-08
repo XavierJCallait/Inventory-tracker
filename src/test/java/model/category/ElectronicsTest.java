@@ -1,13 +1,14 @@
 package model.category;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ElectronicsTypes;
-import org.junit.jupiter.api.Test;
 
 public class ElectronicsTest {
   @Test
@@ -21,6 +22,7 @@ public class ElectronicsTest {
             "Laptop",
             UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             600.0,
@@ -36,6 +38,7 @@ public class ElectronicsTest {
     assertEquals("Laptop", laptop.getName());
     assertNotNull(laptop.getIdentifier());
     assertEquals("Location", laptop.getLocation());
+    assertEquals(10.0, laptop.getWeight());
     assertEquals(dimensions, laptop.getDimensions());
     assertEquals(vendor.getIdentifier(), laptop.getVendorID());
     assertEquals(600.0, laptop.getPower());
