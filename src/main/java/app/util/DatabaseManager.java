@@ -1,4 +1,4 @@
-package util;
+package app.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +19,7 @@ public class DatabaseManager {
    */
   public static void initializeDatabase(Properties databaseProperties) {
     logger.debug("Initializing database...");
-    String databaseName = databaseProperties.getProperty("DB_NAME");
+    String databaseName = databaseProperties.getProperty("DATABASE_NAME");
     String createDatabaseSQLQuery = "CREATE DATABASE IF NOT EXISTS `" + databaseName + "`";
     executeUpdateStatement(databaseProperties, createDatabaseSQLQuery, "SERVER_URL");
   }
@@ -35,8 +35,8 @@ public class DatabaseManager {
   private static void executeUpdateStatement(
       Properties databaseProperties, String updateQuery, String URLType) {
     String url = databaseProperties.getProperty(URLType);
-    String user = databaseProperties.getProperty("DB_USER");
-    String password = databaseProperties.getProperty("DB_PASSWORD");
+    String user = databaseProperties.getProperty("SPRING_DATASOURCE_USERNAME");
+    String password = databaseProperties.getProperty("SPRING_DATASOURCE_PASSWORD");
     try (Connection connection = DriverManager.getConnection(url, user, password);
         Statement statement = connection.createStatement()) {
       statement.executeUpdate(updateQuery);

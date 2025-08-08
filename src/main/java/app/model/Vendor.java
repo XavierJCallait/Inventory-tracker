@@ -1,4 +1,4 @@
-package model;
+package app.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,22 +16,22 @@ import org.hibernate.type.SqlTypes;
 @Entity
 @Table(name = "vendors")
 public class Vendor {
-  @Column(nullable = false, length = 100)
-  private String vendorName;
-
   @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(length = 36)
   @Id
-  private UUID identifier;
+  private UUID vendorIdentifier;
+
+  @Column(nullable = false, length = 100)
+  private String vendorName;
 
   @OneToMany(mappedBy = "vendor", fetch = FetchType.LAZY)
   private Set<Product> products = new HashSet<>();
 
   public Vendor() {}
 
-  public Vendor(String vendorName, UUID identifier) {
+  public Vendor(String vendorName, UUID vendorIdentifier) {
     this.vendorName = vendorName;
-    this.identifier = identifier;
+    this.vendorIdentifier = vendorIdentifier;
   }
 
   public String getVendorName() {
@@ -39,7 +39,7 @@ public class Vendor {
   }
 
   public UUID getIdentifier() {
-    return this.identifier;
+    return this.vendorIdentifier;
   }
 
   public Set<Product> getProducts() {

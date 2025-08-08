@@ -1,4 +1,4 @@
-package util;
+package app.util;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -18,13 +18,13 @@ public class DatabaseManagerTest {
   @Test
   public void shouldConnectAndCreateDatabase() {
     Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
-    databaseProperties.setProperty("DB_NAME", testDatabaseName);
+    databaseProperties.setProperty("DATABASE_NAME", testDatabaseName);
     DatabaseManager.initializeDatabase(databaseProperties);
 
     String url = databaseProperties.getProperty("SERVER_URL");
-    String user = databaseProperties.getProperty("DB_USER");
-    String password = databaseProperties.getProperty("DB_PASSWORD");
-    String databaseName = databaseProperties.getProperty("DB_NAME");
+    String user = databaseProperties.getProperty("SPRING_DATASOURCE_USERNAME");
+    String password = databaseProperties.getProperty("SPRING_DATASOURCE_PASSWORD");
+    String databaseName = databaseProperties.getProperty("DATABASE_NAME");
     try (Connection connection = DriverManager.getConnection(url, user, password)) {
       PreparedStatement ps =
           connection.prepareStatement(
@@ -41,12 +41,12 @@ public class DatabaseManagerTest {
   @AfterEach
   public void dropTestTable() {
     Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
-    databaseProperties.setProperty("DB_NAME", testDatabaseName);
+    databaseProperties.setProperty("DATABASE_NAME", testDatabaseName);
 
     String url = databaseProperties.getProperty("SERVER_URL");
-    String user = databaseProperties.getProperty("DB_USER");
-    String password = databaseProperties.getProperty("DB_PASSWORD");
-    String databaseName = databaseProperties.getProperty("DB_NAME");
+    String user = databaseProperties.getProperty("SPRING_DATASOURCE_USERNAME");
+    String password = databaseProperties.getProperty("SPRING_DATASOURCE_PASSWORD");
+    String databaseName = databaseProperties.getProperty("DATABASE_NAME");
     try (Connection connection = DriverManager.getConnection(url, user, password)) {
       String dropDatabaseSQLQuery = "DROP DATABASE IF EXISTS `" + databaseName + "`";
       Statement statement = connection.createStatement();

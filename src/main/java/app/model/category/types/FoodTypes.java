@@ -1,4 +1,4 @@
-package model.category.types;
+package app.model.category.types;
 
 public class FoodTypes {
   public enum Types implements ProductTypeEnum {
