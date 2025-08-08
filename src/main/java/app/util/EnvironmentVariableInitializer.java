@@ -1,6 +1,7 @@
 package app.util;
 
 import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,7 @@ public class EnvironmentVariableInitializer {
       logger.error("Validation of environment variables failed");
       throw new RuntimeException("Missing or invalid environment variables");
     }
+    logger.debug("Fetched and validated environment variables!");
   }
 
   /**
@@ -31,10 +33,10 @@ public class EnvironmentVariableInitializer {
   private static Properties getPropertiesFromEnvironment() {
     Properties properties = new Properties();
     properties.setProperty("SERVER_URL", System.getenv("SERVER_URL"));
-    properties.setProperty("DB_NAME", System.getenv("DB_NAME"));
-    properties.setProperty("DB_USER", System.getenv("DB_USER"));
-    properties.setProperty("DB_PASSWORD", System.getenv("DB_PASSWORD"));
-    properties.setProperty("DB_URL", System.getenv("DB_URL"));
+    properties.setProperty("DATABASE_NAME", System.getenv("DATABASE_NAME"));
+    properties.setProperty("SPRING_DATASOURCE_USERNAME", System.getenv("SPRING_DATASOURCE_USERNAME"));
+    properties.setProperty("SPRING_DATASOURCE_PASSWORD", System.getenv("SPRING_DATASOURCE_PASSWORD"));
+    properties.setProperty("SPRING_DATASOURCE_URL", System.getenv("SPRING_DATASOURCE_URL"));
     return properties;
   }
 
@@ -45,15 +47,43 @@ public class EnvironmentVariableInitializer {
    * @return true if properties are valid, false otherwise.
    */
   private static boolean validProperties(Properties properties) {
+    if (properties.getProperty("SERVER_URL") == null) {
+      logger.error("Missing SERVER_URL environment variable");
+    }
+    else if (!properties.getProperty("SERVER_URL").startsWith("jdbc:mysql://")) {
+      logger.error("Invalid SERVER_URL format");
+    }
+    if (properties.getProperty("DATABASE_NAME") == null) {
+      logger.error("Missing DATABASE_NAME environment variable");
+    }
+    else if (!properties.getProperty("DATABASE_NAME").matches("^[a-zA-Z0-9_]+$")) {
+      logger.error("Invalid DATABASE_NAME format");
+    }
+    if (properties.getProperty("SPRING_DATASOURCE_URL") == null) {
+      logger.error("Missing SPRING_DATASOURCE_URL environment variable");
+    }
+    else if (!properties.getProperty("SPRING_DATASOURCE_URL").startsWith("jdbc:mysql://")) {
+      logger.error("Invalid SPRING_DATASOURCE_URL format");
+    }
+    if (properties.getProperty("SPRING_DATASOURCE_USERNAME") == null) {
+      logger.error("Missing SPRING_DATASOURCE_USERNAME environment variable");
+    }
+    if (properties.getProperty("SPRING_DATASOURCE_PASSWORD") == null) {
+      logger.error("Missing SPRING_DATASOURCE_PASSWORD environment variable");
+    }
+    else if (properties.getProperty("SPRING_DATASOURCE_PASSWORD").length() < 8) {
+      logger.error("Invalid SPRING_DATASOURCE_PASSWORD format");
+    }
+
     return properties.getProperty("SERVER_URL") != null
-        && properties.getProperty("DB_URL") != null
-        && properties.getProperty("DB_NAME") != null
-        && properties.getProperty("DB_USER") != null
-        && properties.getProperty("DB_PASSWORD") != null
+        && properties.getProperty("DATABASE_NAME") != null
+        && properties.getProperty("SPRING_DATASOURCE_URL") != null
+        && properties.getProperty("SPRING_DATASOURCE_NAME") != null
+        && properties.getProperty("SPRING_DATASOURCE_USERNAME") != null
         && properties.getProperty("SERVER_URL").startsWith("jdbc:mysql://")
-        && properties.getProperty("DB_URL").startsWith("jdbc:mysql://")
-        && properties.getProperty("DB_PASSWORD").length() >= 8
-        && properties.getProperty("DB_NAME").matches("^[a-zA-Z0-9_]+$");
+        && properties.getProperty("SPRING_DATASOURCE_URL").startsWith("jdbc:mysql://")
+        && properties.getProperty("SPRING_DATASOURCE_PASSWORD").length() >= 8
+        && properties.getProperty("DATABASE_NAME").matches("^[a-zA-Z0-9_]+$");
   }
 
   /**
