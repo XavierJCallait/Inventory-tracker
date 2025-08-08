@@ -1,14 +1,13 @@
 package model.category;
 
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
 import model.Product;
 import model.Vendor;
 import model.category.types.ClothesTypes;
+import org.junit.jupiter.api.Test;
 
 public class ClothesTest {
   @Test
@@ -59,11 +58,11 @@ public class ClothesTest {
             ClothesTypes.SizeTypes.MEDIUM,
             ClothesTypes.MaterialTypes.COTTON,
             ClothesTypes.Types.T_SHIRT);
-    
+
     shirt.changePrice(15.99);
     shirt.changeQuantity(2L);
     shirt.changeLocation("New Location");
-    
+
     assertEquals(15.99, shirt.getPrice());
     assertEquals(2L, shirt.getQuantity());
     assertEquals("New Location", shirt.getLocation());
