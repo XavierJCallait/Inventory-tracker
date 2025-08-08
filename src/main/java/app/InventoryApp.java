@@ -2,7 +2,10 @@ package app;
 
 import app.model.Vendor;
 import app.repository.VendorRepository;
+import app.util.DatabaseManager;
+import app.util.EnvironmentVariableInitializer;
 import java.util.List;
+import java.util.Properties;
 import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -106,6 +109,8 @@ import org.springframework.context.annotation.Bean;
 public class InventoryApp {
 
   public static void main(String[] args) {
+    Properties databaseProperties = EnvironmentVariableInitializer.getEnvironmentProperties();
+    DatabaseManager.initializeDatabase(databaseProperties);
     SpringApplication.run(InventoryApp.class, args);
   }
 
