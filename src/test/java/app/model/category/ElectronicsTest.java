@@ -2,24 +2,22 @@ package app.model.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.types.ElectronicsTypes;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
 
 public class ElectronicsTest {
   @Test
   void shouldInitializeElectronics() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     Electronics laptop =
         new Electronics(
             1L,
             999.99,
             "Laptop",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,

@@ -1,29 +1,28 @@
 package app.model.category;
 
+import java.time.Instant;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.Food.NutritionValue;
 import app.model.category.types.FoodTypes;
-import java.time.Instant;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
 
 class FoodTest {
   @Test
   void shouldInitializeFood() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,
@@ -55,14 +54,13 @@ class FoodTest {
   @Test
   void shouldUpdateFood() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,
@@ -84,14 +82,13 @@ class FoodTest {
   @Test
   void shouldBeExpired() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,

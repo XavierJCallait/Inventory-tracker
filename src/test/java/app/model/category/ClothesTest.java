@@ -2,24 +2,22 @@ package app.model.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.types.ClothesTypes;
-import java.util.UUID;
-import org.junit.jupiter.api.Test;
 
 public class ClothesTest {
   @Test
   void shouldInitializeClothes() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     Clothes shirt =
         new Clothes(
             1L,
             19.99,
             "Shirt",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,
@@ -46,13 +44,12 @@ public class ClothesTest {
   @Test
   void shouldUpdateClothes() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     Clothes shirt =
         new Clothes(
             1L,
             19.99,
             "Shirt",
-            UUID.randomUUID(),
             "Location",
             10.0,
             dimensions,
