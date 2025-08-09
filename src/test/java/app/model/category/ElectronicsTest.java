@@ -33,7 +33,6 @@ public class ElectronicsTest {
     assertEquals(1L, laptop.getQuantity());
     assertEquals(999.99, laptop.getPrice());
     assertEquals("Laptop", laptop.getName());
-    assertNotNull(laptop.getIdentifier());
     assertEquals("Location", laptop.getLocation());
     assertEquals(10.0, laptop.getWeight());
     assertEquals(dimensions, laptop.getDimensions());

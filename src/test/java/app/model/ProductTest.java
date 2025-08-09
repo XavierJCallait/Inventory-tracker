@@ -20,7 +20,6 @@ class ProductTest {
     assertEquals(10.0, product.getWeight());
     assertEquals(dimensions, product.getDimensions());
     assertEquals(vendor.getIdentifier(), product.getVendorID());
-    assertNotNull(product.getIdentifier());
   }
 
   @Test

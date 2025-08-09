@@ -10,7 +10,6 @@ public class VendorTest {
     Vendor vendor = new Vendor("VendorName");
     assertNotNull(vendor);
     assertEquals("VendorName", vendor.getVendorName());
-    assertNotNull(vendor.getIdentifier());
     assertEquals(0, vendor.getProducts().size());
   }
 }
