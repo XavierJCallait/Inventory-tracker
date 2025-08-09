@@ -6,7 +6,6 @@ import app.util.DatabaseManager;
 import app.util.EnvironmentVariableInitializer;
 import java.util.List;
 import java.util.Properties;
-import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,7 +25,7 @@ public class InventoryApp {
     return args -> {
       System.out.println("📦 Testing database connection...");
 
-      Vendor vendor = new Vendor("Test Vendor", UUID.randomUUID());
+      Vendor vendor = new Vendor("Test Vendor");
       vendorRepository.save(vendor);
 
       System.out.println("✅ Saved vendor: " + vendor.getVendorName());
