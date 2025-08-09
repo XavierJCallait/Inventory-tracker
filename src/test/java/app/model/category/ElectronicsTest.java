@@ -2,11 +2,11 @@ package app.model.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import org.junit.jupiter.api.Test;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.types.ElectronicsTypes;
+import org.junit.jupiter.api.Test;
 
 public class ElectronicsTest {
   @Test

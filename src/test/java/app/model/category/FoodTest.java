@@ -1,16 +1,15 @@
 package app.model.category;
 
-import java.time.Instant;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.Food.NutritionValue;
 import app.model.category.types.FoodTypes;
+import java.time.Instant;
+import org.junit.jupiter.api.Test;
 
 class FoodTest {
   @Test

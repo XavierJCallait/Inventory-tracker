@@ -1,7 +1,5 @@
 package app.model.category;
 
-import java.time.Instant;
-
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.types.FoodTypes;
@@ -15,6 +13,7 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import java.time.Instant;
 
 @Entity
 @DiscriminatorValue("food")
