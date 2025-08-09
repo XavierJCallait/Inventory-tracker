@@ -1,5 +1,7 @@
 package app.model.category;
 
+import java.time.Instant;
+
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.types.FoodTypes;
@@ -13,8 +15,6 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @DiscriminatorValue("food")
@@ -30,7 +30,7 @@ public class Food extends Product {
   private PackageTypes packageType;
 
   private Instant expirationDate;
-  private Instant packagedDate = Instant.now();
+  private final Instant packagedDate = Instant.now();
 
   @Embedded private NutritionValue nutritionValue;
 
@@ -48,7 +48,6 @@ public class Food extends Product {
       Long quantity,
       Double price,
       String name,
-      UUID identifier,
       String location,
       Double weight,
       Dimensions dimensions,
@@ -59,7 +58,7 @@ public class Food extends Product {
       Instant expirationDate,
       NutritionValue nutritionValue,
       Types type) {
-    super(quantity, price, name, identifier, location, weight, dimensions, vendor);
+    super(quantity, price, name, location, weight, dimensions, vendor);
     this.isOrganic = isOrganic;
     this.storageTemperatureType = storageTemperatureType;
     this.packageType = packageType;

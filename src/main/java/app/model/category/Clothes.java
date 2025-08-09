@@ -11,7 +11,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.util.UUID;
 
 @Entity
 @DiscriminatorValue("clothes")
@@ -32,7 +31,6 @@ public class Clothes extends Product {
       Long quantity,
       Double price,
       String name,
-      UUID identifier,
       String location,
       Double weight,
       Dimensions dimensions,
@@ -41,7 +39,7 @@ public class Clothes extends Product {
       SizeTypes size,
       MaterialTypes material,
       Types types) {
-    super(quantity, price, name, identifier, location, weight, dimensions, vendor);
+    super(quantity, price, name, location, weight, dimensions, vendor);
     this.color = color;
     this.size = size;
     this.material = material;

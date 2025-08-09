@@ -12,7 +12,6 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.util.UUID;
 
 @Entity
 @DiscriminatorValue("electronics")
@@ -39,7 +38,6 @@ public class Electronics extends Product {
       Long quantity,
       Double price,
       String name,
-      UUID identifier,
       String location,
       Double weight,
       Dimensions dimensions,
@@ -51,7 +49,7 @@ public class Electronics extends Product {
       PowerSourceTypes powerSourceType,
       CurrentTypes currentType,
       Types type) {
-    super(quantity, price, name, identifier, location, weight, dimensions, vendor);
+    super(quantity, price, name, location, weight, dimensions, vendor);
     this.power = power;
     this.current = current;
     this.voltage = voltage;
