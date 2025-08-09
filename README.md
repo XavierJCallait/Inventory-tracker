@@ -19,7 +19,7 @@ Runs the unit tests based on the testing framework available
 Creates a distributable format of the source code and runs tests
 
 ## mvn verify
-Runs all of the the above commands
+Runs all of the the above commands with the linter and formatter
 
 ## mvn exec:java
 Runs the compiled code

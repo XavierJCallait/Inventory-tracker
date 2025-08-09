@@ -1,30 +1,29 @@
-package model.category;
+package app.model.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import app.model.Product;
+import app.model.Vendor;
+import app.model.category.Food.NutritionValue;
+import app.model.category.types.FoodTypes;
 import java.time.Instant;
-import java.util.UUID;
-import model.Product;
-import model.Vendor;
-import model.category.Food.NutritionValue;
-import model.category.types.FoodTypes;
 import org.junit.jupiter.api.Test;
 
 class FoodTest {
   @Test
   void shouldInitializeFood() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,
@@ -37,8 +36,8 @@ class FoodTest {
     assertEquals(1L, milk.getQuantity());
     assertEquals(2.5, milk.getPrice());
     assertEquals("Milk", milk.getName());
-    assertNotNull(milk.getIdentifier());
     assertEquals("Location", milk.getLocation());
+    assertEquals(10.0, milk.getWeight());
     assertEquals(dimensions, milk.getDimensions());
     assertEquals(vendor.getIdentifier(), milk.getVendorID());
     assertTrue(milk.getIsOrganic());
@@ -53,15 +52,15 @@ class FoodTest {
   @Test
   void shouldUpdateFood() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,
@@ -81,15 +80,15 @@ class FoodTest {
   @Test
   void shouldBeExpired() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("VendorName", UUID.randomUUID());
+    Vendor vendor = new Vendor("VendorName");
     NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
     Food milk =
         new Food(
             1L,
             2.5,
             "Milk",
-            UUID.randomUUID(),
             "Location",
+            10.0,
             dimensions,
             vendor,
             true,

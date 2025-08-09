@@ -1,11 +1,13 @@
-package model;
+package app.model;
 
+import app.model.category.types.ProductTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -13,7 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.UUID;
-import model.category.types.ProductTypeEnum;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -22,17 +23,19 @@ import org.hibernate.type.SqlTypes;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category")
 public class Product {
+  @Id
+  @GeneratedValue
+  @JdbcTypeCode(SqlTypes.VARCHAR)
+  @Column(length = 36, updatable = false)
+  private UUID identifier;
+
+  @Column(nullable = false, length = 100)
+  private String name;
+
   private Long quantity;
   private Double price;
   private String location;
-
-  @Column(nullable = false)
-  private String name;
-
-  @JdbcTypeCode(SqlTypes.VARCHAR)
-  @Column(length = 36)
-  @Id
-  private UUID identifier;
+  private Double weight;
 
   @Embedded private Dimensions dimensions;
 
@@ -52,15 +55,15 @@ public class Product {
       Long quantity,
       Double price,
       String name,
-      UUID identifier,
       String location,
+      Double weight,
       Dimensions dimensions,
       Vendor vendor) {
     this.quantity = quantity;
     this.price = price;
-    this.location = location;
     this.name = name;
-    this.identifier = identifier;
+    this.location = location;
+    this.weight = weight;
     this.dimensions = dimensions;
     this.vendor = vendor;
   }
@@ -111,5 +114,9 @@ public class Product {
 
   protected String getType() {
     return this.type;
+  }
+
+  public Double getWeight() {
+    return this.weight;
   }
 }

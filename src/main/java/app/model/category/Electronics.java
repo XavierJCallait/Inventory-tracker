@@ -1,18 +1,17 @@
-package model.category;
+package app.model.category;
 
+import app.model.Product;
+import app.model.Vendor;
+import app.model.category.types.ElectronicsTypes;
+import app.model.category.types.ElectronicsTypes.ConnectivityTypes;
+import app.model.category.types.ElectronicsTypes.CurrentTypes;
+import app.model.category.types.ElectronicsTypes.PowerSourceTypes;
+import app.model.category.types.ElectronicsTypes.Types;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import java.util.UUID;
-import model.Product;
-import model.Vendor;
-import model.category.types.ElectronicsTypes;
-import model.category.types.ElectronicsTypes.ConnectivityTypes;
-import model.category.types.ElectronicsTypes.CurrentTypes;
-import model.category.types.ElectronicsTypes.PowerSourceTypes;
-import model.category.types.ElectronicsTypes.Types;
 
 @Entity
 @DiscriminatorValue("electronics")
@@ -39,8 +38,8 @@ public class Electronics extends Product {
       Long quantity,
       Double price,
       String name,
-      UUID identifier,
       String location,
+      Double weight,
       Dimensions dimensions,
       Vendor vendor,
       Double power,
@@ -50,7 +49,7 @@ public class Electronics extends Product {
       PowerSourceTypes powerSourceType,
       CurrentTypes currentType,
       Types type) {
-    super(quantity, price, name, identifier, location, dimensions, vendor);
+    super(quantity, price, name, location, weight, dimensions, vendor);
     this.power = power;
     this.current = current;
     this.voltage = voltage;
