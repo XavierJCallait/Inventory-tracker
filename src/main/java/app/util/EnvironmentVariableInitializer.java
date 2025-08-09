@@ -1,6 +1,7 @@
 package app.util;
 
 import java.util.Properties;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ public class EnvironmentVariableInitializer {
     environmentProperties = getPropertiesFromEnvironment();
     logger.debug("Fetching environment variables...");
     if (!validProperties(environmentProperties)) {
-      logger.error("Validation of environment variables failed: " + environmentProperties);
+      logger.error("Validation of environment variables failed");
       throw new RuntimeException("Missing or invalid environment variables");
     }
     logger.debug("Fetched and validated environment variables!");
