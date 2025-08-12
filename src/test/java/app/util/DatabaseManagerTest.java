@@ -12,7 +12,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class DatabaseManagerTest {
+class DatabaseManagerTest {
   private final String testDatabaseName = "test_inventory_db";
 
   @Test

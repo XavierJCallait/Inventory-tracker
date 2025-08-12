@@ -39,7 +39,7 @@ class FoodTest {
     assertEquals("Location", milk.getLocation());
     assertEquals(10.0, milk.getWeight());
     assertEquals(dimensions, milk.getDimensions());
-    assertEquals(vendor.getIdentifier(), milk.getVendorID());
+    assertEquals(vendor.getVendorIdentifier(), milk.getVendorID());
     assertTrue(milk.getIsOrganic());
     assertEquals(FoodTypes.StorageTemperatureTypes.REFRIGERATED, milk.getStorageTemperatureType());
     assertEquals(FoodTypes.PackageTypes.JUG, milk.getPackageType());
