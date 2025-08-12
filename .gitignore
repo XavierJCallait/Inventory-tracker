@@ -1,5 +1,5 @@
 # environment files
-*.properties
+src/main/resources/application.properties
 .env
 env.*
 
