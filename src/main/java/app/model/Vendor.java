@@ -3,7 +3,6 @@ package app.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -18,10 +17,9 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "vendors")
 public class Vendor {
   @Id
-  @GeneratedValue
   @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(length = 36, updatable = false)
-  private UUID vendorIdentifier;
+  private UUID vendorIdentifier = UUID.randomUUID();
 
   @Column(nullable = false, length = 100, unique = true)
   private String vendorName;
@@ -39,7 +37,7 @@ public class Vendor {
     return this.vendorName;
   }
 
-  public UUID getIdentifier() {
+  public UUID getVendorIdentifier() {
     return this.vendorIdentifier;
   }
 
