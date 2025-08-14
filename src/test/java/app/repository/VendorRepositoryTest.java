@@ -1,6 +1,7 @@
 package app.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-// import org.springframework.test.context.ActiveProfiles;
-
 @DataJpaTest
-// @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class VendorRepositoryTest {
 
@@ -42,7 +40,7 @@ class VendorRepositoryTest {
   }
 
   @Test
-  void shouldFindVendorById() {
+  void shouldFindVendorByIdentifier() {
     Vendor testVendor = new Vendor("TestVendor");
     vendors.save(testVendor);
 
@@ -53,7 +51,7 @@ class VendorRepositoryTest {
   }
 
   @Test
-  void shouldNotFindVendorById() {
+  void shouldNotFindVendorByIdentifier() {
     Vendor realVendor = new Vendor("RealVendor");
     vendors.save(realVendor);
 
@@ -68,5 +66,14 @@ class VendorRepositoryTest {
 
     Boolean exists = vendors.existsByVendorName("TestVendor");
     assertTrue(exists);
+  }
+
+  @Test
+  void shouldNotFindExistingVendorByName() {
+    Vendor realVendor = new Vendor("RealVendor");
+    vendors.save(realVendor);
+
+    Boolean exists = vendors.existsByVendorName("TestVendor");
+    assertFalse(exists);
   }
 }
