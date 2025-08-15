@@ -7,7 +7,6 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -24,10 +23,9 @@ import org.hibernate.type.SqlTypes;
 @DiscriminatorColumn(name = "category")
 public class Product {
   @Id
-  @GeneratedValue
   @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(length = 36, updatable = false)
-  private UUID identifier;
+  private UUID identifier = UUID.randomUUID();
 
   @Column(nullable = false, length = 100)
   private String name;
@@ -105,7 +103,7 @@ public class Product {
   }
 
   public UUID getVendorID() {
-    return this.vendor.getIdentifier();
+    return this.vendor.getVendorIdentifier();
   }
 
   protected void setType(ProductTypeEnum productType) {

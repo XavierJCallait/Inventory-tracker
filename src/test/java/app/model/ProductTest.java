@@ -19,7 +19,7 @@ class ProductTest {
     assertEquals("Location", product.getLocation());
     assertEquals(10.0, product.getWeight());
     assertEquals(dimensions, product.getDimensions());
-    assertEquals(vendor.getIdentifier(), product.getVendorID());
+    assertEquals(vendor.getVendorIdentifier(), product.getVendorID());
   }
 
   @Test

@@ -8,7 +8,7 @@ import app.model.Vendor;
 import app.model.category.types.ClothesTypes;
 import org.junit.jupiter.api.Test;
 
-public class ClothesTest {
+class ClothesTest {
   @Test
   void shouldInitializeClothes() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
@@ -33,7 +33,7 @@ public class ClothesTest {
     assertEquals("Location", shirt.getLocation());
     assertEquals(10.0, shirt.getWeight());
     assertEquals(dimensions, shirt.getDimensions());
-    assertEquals(vendor.getIdentifier(), shirt.getVendorID());
+    assertEquals(vendor.getVendorIdentifier(), shirt.getVendorID());
     assertEquals("Blue", shirt.getColor());
     assertEquals(ClothesTypes.SizeTypes.MEDIUM, shirt.getSize());
     assertEquals(ClothesTypes.MaterialTypes.COTTON, shirt.getMaterial());

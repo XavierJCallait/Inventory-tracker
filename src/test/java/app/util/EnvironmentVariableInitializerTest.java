@@ -6,7 +6,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 /** Unit tests for EnvironmentVariableInitializer. */
-public class EnvironmentVariableInitializerTest {
+class EnvironmentVariableInitializerTest {
   @Test
   public void shouldLoadEnvironmentVariables() {
     Properties properties = EnvironmentVariableInitializer.getEnvironmentProperties();

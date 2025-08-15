@@ -8,7 +8,7 @@ import app.model.Vendor;
 import app.model.category.types.ElectronicsTypes;
 import org.junit.jupiter.api.Test;
 
-public class ElectronicsTest {
+class ElectronicsTest {
   @Test
   void shouldInitializeElectronics() {
     Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
@@ -36,7 +36,7 @@ public class ElectronicsTest {
     assertEquals("Location", laptop.getLocation());
     assertEquals(10.0, laptop.getWeight());
     assertEquals(dimensions, laptop.getDimensions());
-    assertEquals(vendor.getIdentifier(), laptop.getVendorID());
+    assertEquals(vendor.getVendorIdentifier(), laptop.getVendorID());
     assertEquals(600.0, laptop.getPower());
     assertEquals(5.0, laptop.getCurrent());
     assertEquals(120.0, laptop.getVoltage());

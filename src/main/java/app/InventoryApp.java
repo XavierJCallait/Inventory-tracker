@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class InventoryApp {
@@ -20,12 +21,13 @@ public class InventoryApp {
     SpringApplication.run(InventoryApp.class, args);
   }
 
+  @Profile("!test")
   @Bean
   CommandLineRunner testDatabaseConnection(VendorRepository vendorRepository) {
     return args -> {
       System.out.println("📦 Testing database connection...");
 
-      Vendor vendor = new Vendor("Test Vendor");
+      Vendor vendor = new Vendor("AMAZON");
       vendorRepository.save(vendor);
 
       System.out.println("✅ Saved vendor: " + vendor.getVendorName());
