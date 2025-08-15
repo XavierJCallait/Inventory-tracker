@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import app.model.Vendor;
 import java.util.UUID;
@@ -119,12 +120,12 @@ public class VendorServiceTest {
 
     Pageable pageable = PageRequest.of(0, 2);
     Page<Vendor> allVendors = vendorService.getAllVendors(pageable);
-    assertEquals(true, allVendors.hasContent());
+    assertTrue(allVendors.hasContent());
     assertEquals(3, allVendors.getTotalElements());
     assertEquals(2, allVendors.getContent().size());
     pageable = PageRequest.of(1, 2);
     allVendors = vendorService.getAllVendors(pageable);
-    assertEquals(true, allVendors.hasContent());
+    assertTrue(allVendors.hasContent());
     assertEquals(3, allVendors.getTotalElements());
     assertEquals(1, allVendors.getContent().size());
   }
