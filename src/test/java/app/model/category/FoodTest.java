@@ -35,7 +35,7 @@ class FoodTest {
     assertNotNull(milk);
     assertEquals(1L, milk.getQuantity());
     assertEquals(2.5, milk.getPrice());
-    assertEquals("Milk", milk.getName());
+    assertEquals("Milk", milk.getProductName());
     assertEquals("Location", milk.getLocation());
     assertEquals(10.0, milk.getWeight());
     assertEquals(dimensions, milk.getDimensions());

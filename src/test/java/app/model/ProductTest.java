@@ -15,7 +15,7 @@ class ProductTest {
     assertNotNull(product);
     assertEquals(1L, product.getQuantity());
     assertEquals(1000.00, product.getPrice());
-    assertEquals("Name", product.getName());
+    assertEquals("Name", product.getProductName());
     assertEquals("Location", product.getLocation());
     assertEquals(10.0, product.getWeight());
     assertEquals(dimensions, product.getDimensions());
