@@ -2,7 +2,6 @@ package app.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import app.model.Vendor;
@@ -12,8 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
+@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class VendorRepositoryTest {
 
@@ -26,8 +27,8 @@ class VendorRepositoryTest {
 
     Optional<Vendor> vendor = vendors.findByVendorName("TestVendor");
     assertTrue(vendor.isPresent());
-    assertEquals("TestVendor", vendor.get().getVendorName());
-    assertNotNull(vendor.get().getVendorIdentifier());
+    assertEquals(testVendor.getVendorName(), vendor.get().getVendorName());
+    assertEquals(testVendor.getVendorIdentifier(), vendor.get().getVendorIdentifier());
   }
 
   @Test
@@ -46,8 +47,8 @@ class VendorRepositoryTest {
 
     Optional<Vendor> vendor = vendors.findByVendorIdentifier(testVendor.getVendorIdentifier());
     assertTrue(vendor.isPresent());
-    assertEquals("TestVendor", vendor.get().getVendorName());
-    assertNotNull(vendor.get().getVendorIdentifier());
+    assertEquals(testVendor.getVendorName(), vendor.get().getVendorName());
+    assertEquals(testVendor.getVendorIdentifier(), vendor.get().getVendorIdentifier());
   }
 
   @Test
