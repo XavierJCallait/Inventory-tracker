@@ -90,11 +90,11 @@ public class Product {
     this.location = location;
   }
 
-  public String getName() {
+  public String getProductName() {
     return this.name;
   }
 
-  public UUID getIdentifier() {
+  public UUID getProductIdentifier() {
     return this.identifier;
   }
 
