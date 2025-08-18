@@ -1,5 +1,10 @@
 package app.model;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import app.model.category.types.ProductTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -13,9 +18,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.UUID;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "products")
@@ -25,7 +27,7 @@ public class Product {
   @Id
   @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(length = 36, updatable = false)
-  private UUID identifier = UUID.randomUUID();
+  private UUID productIdentifier = UUID.randomUUID();
 
   @Column(nullable = false, length = 100)
   private String name;
@@ -95,7 +97,7 @@ public class Product {
   }
 
   public UUID getProductIdentifier() {
-    return this.identifier;
+    return this.productIdentifier;
   }
 
   public Dimensions getDimensions() {
