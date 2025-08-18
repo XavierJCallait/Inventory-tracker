@@ -1,5 +1,10 @@
 package app.model;
 
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import app.model.category.types.ProductTypeEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -13,9 +18,6 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.UUID;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "products")
@@ -28,12 +30,13 @@ public class Product {
   private UUID productIdentifier = UUID.randomUUID();
 
   @Column(nullable = false, length = 100)
-  private String name;
+  private String productName;
 
   private Long quantity;
   private Double price;
   private String location;
   private Double weight;
+  private Double discount = 0.0;
 
   @Embedded private Dimensions dimensions;
 
@@ -52,14 +55,14 @@ public class Product {
   public Product(
       Long quantity,
       Double price,
-      String name,
+      String productName,
       String location,
       Double weight,
       Dimensions dimensions,
       Vendor vendor) {
     this.quantity = quantity;
     this.price = price;
-    this.name = name;
+    this.productName = productName;
     this.location = location;
     this.weight = weight;
     this.dimensions = dimensions;
@@ -91,7 +94,7 @@ public class Product {
   }
 
   public String getProductName() {
-    return this.name;
+    return this.productName;
   }
 
   public UUID getProductIdentifier() {
@@ -116,5 +119,13 @@ public class Product {
 
   public Double getWeight() {
     return this.weight;
+  }
+
+  public Double getDiscount() {
+    return this.discount;
+  }
+
+  public void changeDiscount(Double discount) {
+    this.discount = discount;
   }
 }
