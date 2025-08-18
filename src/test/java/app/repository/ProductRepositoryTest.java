@@ -1,20 +1,19 @@
 package app.repository;
 
-import java.util.Optional;
-import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.Clothes;
 import app.model.category.types.ClothesTypes;
+import java.util.Optional;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -43,11 +42,12 @@ class ProductRepositoryTest {
     vendorRepository.save(vendor);
     productRepository.save(shirt);
 
-    Optional<Product> optProduct = productRepository.findByProductIdentifier(shirt.getProductIdentifier());
+    Optional<Product> optProduct =
+        productRepository.findByProductIdentifier(shirt.getProductIdentifier());
     assertTrue(optProduct.isPresent());
     if (optProduct.isPresent()) {
       Clothes retrieved = (Clothes) optProduct.get();
-      assertEquals(ClothesTypes.Types.T_SHIRT, retrieved.getType());
+      assertEquals(ClothesTypes.Types.T_SHIRT, ClothesTypes.Types.fromDbValue(retrieved.getType()));
     }
     assertEquals(shirt.getProductName(), optProduct.get().getProductName());
     assertEquals(shirt.getProductIdentifier(), optProduct.get().getProductIdentifier());
@@ -84,7 +84,9 @@ class ProductRepositoryTest {
   //   Product testProduct = new Product(1L, 1000.00, "Name", "Location", 10.0, dimensions, vendor);
   //   productRepository.save(testProduct);
 
-  //   Optional<Product> product = productRepository.findByVendorAndProductName(vendor.getVendorName(), testProduct.getProductName());
+  //   Optional<Product> product =
+  // productRepository.findByVendorAndProductName(vendor.getVendorName(),
+  // testProduct.getProductName());
   //   assertTrue(product.isPresent());
   //   assertEquals(testProduct.getProductName(), product.get().getProductName());
   //   assertEquals(testProduct.getProductIdentifier(), product.get().getProductIdentifier());
