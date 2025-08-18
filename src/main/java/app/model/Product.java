@@ -25,15 +25,16 @@ public class Product {
   @Id
   @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(length = 36, updatable = false)
-  private UUID identifier = UUID.randomUUID();
+  private UUID productIdentifier = UUID.randomUUID();
 
   @Column(nullable = false, length = 100)
-  private String name;
+  private String productName;
 
   private Long quantity;
   private Double price;
   private String location;
   private Double weight;
+  private Double discount = 0.0;
 
   @Embedded private Dimensions dimensions;
 
@@ -52,14 +53,14 @@ public class Product {
   public Product(
       Long quantity,
       Double price,
-      String name,
+      String productName,
       String location,
       Double weight,
       Dimensions dimensions,
       Vendor vendor) {
     this.quantity = quantity;
     this.price = price;
-    this.name = name;
+    this.productName = productName;
     this.location = location;
     this.weight = weight;
     this.dimensions = dimensions;
@@ -90,12 +91,12 @@ public class Product {
     this.location = location;
   }
 
-  public String getName() {
-    return this.name;
+  public String getProductName() {
+    return this.productName;
   }
 
-  public UUID getIdentifier() {
-    return this.identifier;
+  public UUID getProductIdentifier() {
+    return this.productIdentifier;
   }
 
   public Dimensions getDimensions() {
@@ -110,11 +111,19 @@ public class Product {
     this.type = productType.getDbValue();
   }
 
-  protected String getType() {
+  public String getType() {
     return this.type;
   }
 
   public Double getWeight() {
     return this.weight;
+  }
+
+  public Double getDiscount() {
+    return this.discount;
+  }
+
+  public void changeDiscount(Double discount) {
+    this.discount = discount;
   }
 }

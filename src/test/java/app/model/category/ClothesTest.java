@@ -29,7 +29,7 @@ class ClothesTest {
     assertNotNull(shirt);
     assertEquals(1L, shirt.getQuantity());
     assertEquals(19.99, shirt.getPrice());
-    assertEquals("Shirt", shirt.getName());
+    assertEquals("Shirt", shirt.getProductName());
     assertEquals("Location", shirt.getLocation());
     assertEquals(10.0, shirt.getWeight());
     assertEquals(dimensions, shirt.getDimensions());
