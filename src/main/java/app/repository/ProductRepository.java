@@ -1,12 +1,10 @@
 package app.repository;
 
+import app.model.Product;
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import app.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
@@ -22,7 +20,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
   // Optional<Product> findByVendorAndProductName(String vendorName, String productName);
 
-  // Optional<Product> findByVendorIdentifierAndProductName(UUID vendorIdentifier, String productName);
+  // Optional<Product> findByVendorIdentifierAndProductName(UUID vendorIdentifier, String
+  // productName);
 
   // Boolean existsByProductName(String productName);
 }
