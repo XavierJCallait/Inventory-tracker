@@ -112,7 +112,7 @@ public class Product {
     this.type = productType.getDbValue();
   }
 
-  protected String getType() {
+  public String getType() {
     return this.type;
   }
 
