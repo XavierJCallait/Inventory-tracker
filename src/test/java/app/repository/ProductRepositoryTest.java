@@ -33,24 +33,117 @@ class ProductRepositoryTest {
   @Autowired private ProductRepository productRepository;
   @Autowired private VendorRepository vendorRepository;
 
+  Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
+  NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
+  Vendor vendor1 = new Vendor("TestVendor1");
+  Vendor vendor2 = new Vendor("TestVendor2");
+  Clothes shirt =
+      new Clothes(
+          1L,
+          19.99,
+          "Shirt",
+          "Location",
+          10.0,
+          dimensions,
+          vendor1,
+          "Blue",
+          ClothesTypes.SizeTypes.MEDIUM,
+          ClothesTypes.MaterialTypes.COTTON,
+          ClothesTypes.Types.T_SHIRT);
+  Clothes pants =
+      new Clothes(
+          2L,
+          29.99,
+          "Pants",
+          "Location",
+          10.0,
+          dimensions,
+          vendor1,
+          "Black",
+          ClothesTypes.SizeTypes.LARGE,
+          ClothesTypes.MaterialTypes.WOOL,
+          ClothesTypes.Types.PANTS);
+  Electronics laptop1 =
+      new Electronics(
+          1L,
+          999.99,
+          "Laptop",
+          "Location",
+          10.0,
+          dimensions,
+          vendor1,
+          600.0,
+          5.0,
+          120.0,
+          ElectronicsTypes.ConnectivityTypes.BOTH,
+          ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
+          ElectronicsTypes.CurrentTypes.DC,
+          ElectronicsTypes.Types.LAPTOP);
+  Electronics laptop2 =
+      new Electronics(
+          1L,
+          999.99,
+          "Laptop",
+          "Location",
+          10.0,
+          dimensions,
+          vendor2,
+          600.0,
+          5.0,
+          120.0,
+          ElectronicsTypes.ConnectivityTypes.BOTH,
+          ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
+          ElectronicsTypes.CurrentTypes.DC,
+          ElectronicsTypes.Types.LAPTOP);
+  Food milk1 =
+      new Food(
+          1L,
+          2.5,
+          "Milk",
+          "Location",
+          10.0,
+          dimensions,
+          vendor1,
+          true,
+          FoodTypes.StorageTemperatureTypes.REFRIGERATED,
+          FoodTypes.PackageTypes.JUG,
+          Instant.now().plusSeconds(604800),
+          nutritionValue,
+          FoodTypes.Types.DAIRY);
+  Food milk2 =
+      new Food(
+          1L,
+          1.25,
+          "Milk",
+          "Location",
+          5.0,
+          dimensions,
+          vendor1,
+          true,
+          FoodTypes.StorageTemperatureTypes.REFRIGERATED,
+          FoodTypes.PackageTypes.JUG,
+          Instant.now().plusSeconds(604800),
+          nutritionValue,
+          FoodTypes.Types.DAIRY);
+  Food milk3 =
+      new Food(
+          1L,
+          0.25,
+          "Milk",
+          "Location",
+          1.0,
+          dimensions,
+          vendor1,
+          true,
+          FoodTypes.StorageTemperatureTypes.REFRIGERATED,
+          FoodTypes.PackageTypes.JUG,
+          Instant.now().plusSeconds(604800),
+          nutritionValue,
+          FoodTypes.Types.DAIRY);
+
   @Test
-  void shouldFindProductByIdentifier() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Clothes shirt =
-        new Clothes(
-            1L,
-            19.99,
-            "Shirt",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.MEDIUM,
-            ClothesTypes.MaterialTypes.COTTON,
-            ClothesTypes.Types.T_SHIRT);
-    vendorRepository.save(vendor);
+  void shouldFindShirtProductByShirtIdentifier() {
+    vendorRepository.save(vendor1);
     productRepository.save(shirt);
 
     Optional<Product> optProduct =
@@ -65,23 +158,8 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldNotFindProductByIdentifier() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Clothes shirt =
-        new Clothes(
-            1L,
-            19.99,
-            "Shirt",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.MEDIUM,
-            ClothesTypes.MaterialTypes.COTTON,
-            ClothesTypes.Types.T_SHIRT);
-    vendorRepository.save(vendor);
+  void shouldNotFindShirtProductByRandomIdentifier() {
+    vendorRepository.save(vendor1);
     productRepository.save(shirt);
 
     Optional<Product> product = productRepository.findByProductIdentifier(UUID.randomUUID());
@@ -89,42 +167,7 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldFindProductByNameOfDifferentVendors() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor1 = new Vendor("TestVendor1");
-    Electronics laptop1 =
-        new Electronics(
-            1L,
-            999.99,
-            "Laptop",
-            "Location",
-            10.0,
-            dimensions,
-            vendor1,
-            600.0,
-            5.0,
-            120.0,
-            ElectronicsTypes.ConnectivityTypes.BOTH,
-            ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
-            ElectronicsTypes.CurrentTypes.DC,
-            ElectronicsTypes.Types.LAPTOP);
-    Vendor vendor2 = new Vendor("TestVendor2");
-    Electronics laptop2 =
-        new Electronics(
-            1L,
-            999.99,
-            "Laptop",
-            "Location",
-            10.0,
-            dimensions,
-            vendor2,
-            600.0,
-            5.0,
-            120.0,
-            ElectronicsTypes.ConnectivityTypes.BOTH,
-            ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
-            ElectronicsTypes.CurrentTypes.DC,
-            ElectronicsTypes.Types.LAPTOP);
+  void shouldFindLaptop1AndLaptop2ProductByNameOfDifferentVendor1AndVendor2() {
     vendorRepository.save(vendor1);
     vendorRepository.save(vendor2);
     productRepository.save(laptop1);
@@ -147,41 +190,8 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldFindProductByNameOfSameVendor() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
-    Food milk1 =
-        new Food(
-            1L,
-            2.5,
-            "Milk",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    Food milk2 =
-        new Food(
-            1L,
-            1.25,
-            "Milk",
-            "Location",
-            5.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    vendorRepository.save(vendor);
+  void shouldFindMilk1AndMilk2ProductByNameOfSameVendor1() {
+    vendorRepository.save(vendor1);
     productRepository.save(milk1);
     productRepository.save(milk2);
     Page<Product> productPage = productRepository.findByProductName("Milk", PageRequest.of(0, 3));
@@ -201,110 +211,36 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldNotFindProductByName() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Electronics laptop =
-        new Electronics(
-            1L,
-            999.99,
-            "Laptop",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            600.0,
-            5.0,
-            120.0,
-            ElectronicsTypes.ConnectivityTypes.BOTH,
-            ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
-            ElectronicsTypes.CurrentTypes.DC,
-            ElectronicsTypes.Types.LAPTOP);
-    vendorRepository.save(vendor);
-    productRepository.save(laptop);
+  void shouldNotFindLaptop1ProductByName() {
+    vendorRepository.save(vendor1);
+    productRepository.save(laptop1);
     Page<Product> productPage = productRepository.findByProductName("Phone", PageRequest.of(0, 3));
     assertTrue(productPage.isEmpty());
   }
 
   @Test
-  void shouldFindByVendor() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Clothes shirt =
-        new Clothes(
-            1L,
-            19.99,
-            "Shirt",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.MEDIUM,
-            ClothesTypes.MaterialTypes.COTTON,
-            ClothesTypes.Types.T_SHIRT);
-    Clothes pants =
-        new Clothes(
-            1L,
-            49.99,
-            "Pants",
-            "Location",
-            12.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.LARGE,
-            ClothesTypes.MaterialTypes.DENIM,
-            ClothesTypes.Types.PANTS);
-    vendorRepository.save(vendor);
+  void shouldFindShirtAndPantsByVendor() {
+    vendorRepository.save(vendor1);
     productRepository.save(shirt);
     productRepository.save(pants);
-    Page<Product> productPage = productRepository.findByVendor(vendor, PageRequest.of(0, 3));
+    Page<Product> productPage = productRepository.findByVendor(vendor1, PageRequest.of(0, 3));
     assertTrue(productPage.hasContent());
     if (productPage.hasContent()) {
       List<Product> products = productPage.getContent();
       assertEquals(2, products.size());
       assertEquals("Shirt", products.get(0).getProductName());
       assertEquals("Pants", products.get(1).getProductName());
-      assertEquals(vendor.getVendorIdentifier(), products.get(0).getVendorID());
-      assertEquals(vendor.getVendorIdentifier(), products.get(1).getVendorID());
+      assertEquals(vendor1.getVendorIdentifier(), products.get(0).getVendorID());
+      assertEquals(vendor1.getVendorIdentifier(), products.get(1).getVendorID());
     }
   }
 
   @Test
-  void shouldFindByVendorAndProductName() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Clothes shirt =
-        new Clothes(
-            1L,
-            19.99,
-            "Shirt",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.MEDIUM,
-            ClothesTypes.MaterialTypes.COTTON,
-            ClothesTypes.Types.T_SHIRT);
-    Clothes pants =
-        new Clothes(
-            1L,
-            49.99,
-            "Pants",
-            "Location",
-            12.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.LARGE,
-            ClothesTypes.MaterialTypes.DENIM,
-            ClothesTypes.Types.PANTS);
-    vendorRepository.save(vendor);
+  void shouldFindShirtAndPantsByVendorAndProductName() {
+    vendorRepository.save(vendor1);
     productRepository.save(shirt);
     productRepository.save(pants);
-    Optional<Product> optProduct = productRepository.findByVendorAndProductName(vendor, "Shirt");
+    Optional<Product> optProduct = productRepository.findByVendorAndProductName(vendor1, "Shirt");
     assertTrue(optProduct.isPresent());
     if (optProduct.isPresent()) {
       Clothes retrieved = (Clothes) optProduct.get();
@@ -314,56 +250,8 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldFindAllByPriceBetween() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
-    Food milk1 =
-        new Food(
-            1L,
-            2.5,
-            "Milk",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    Food milk2 =
-        new Food(
-            1L,
-            1.25,
-            "Milk",
-            "Location",
-            5.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    Food milk3 =
-        new Food(
-            1L,
-            0.25,
-            "Milk",
-            "Location",
-            1.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    vendorRepository.save(vendor);
+  void shouldFindAllMilk1AndMilk2AndMilk3ByPriceBetween0And2() {
+    vendorRepository.save(vendor1);
     productRepository.save(milk1);
     productRepository.save(milk2);
     productRepository.save(milk3);
@@ -385,56 +273,8 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldFindAllByDiscountGreaterThan() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
-    Food milk1 =
-        new Food(
-            1L,
-            2.5,
-            "Milk",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    Food milk2 =
-        new Food(
-            1L,
-            1.25,
-            "Milk",
-            "Location",
-            5.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    Food milk3 =
-        new Food(
-            1L,
-            0.25,
-            "Milk",
-            "Location",
-            1.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    vendorRepository.save(vendor);
+  void shouldFindAllMilk1AndMilk2ByDiscountGreaterThan30() {
+    vendorRepository.save(vendor1);
     milk1.changeDiscount(20.0);
     milk2.changeDiscount(40.0);
     productRepository.save(milk1);
@@ -458,78 +298,26 @@ class ProductRepositoryTest {
   }
 
   @Test
-  void shouldNotFindAnyByDiscountGreaterThan() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    NutritionValue nutritionValue = new NutritionValue(150, 250.0, 8.0, 12.0, 5.0);
-    Food milk =
-        new Food(
-            1L,
-            2.5,
-            "Milk",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            true,
-            FoodTypes.StorageTemperatureTypes.REFRIGERATED,
-            FoodTypes.PackageTypes.JUG,
-            Instant.now().plusSeconds(604800),
-            nutritionValue,
-            FoodTypes.Types.DAIRY);
-    vendorRepository.save(vendor);
-    productRepository.save(milk);
+  void shouldNotFindAnyMilk3ByDiscountGreaterThan10() {
+    vendorRepository.save(vendor1);
+    productRepository.save(milk3);
     Page<Product> productPage =
         productRepository.findAllByDiscountGreaterThan(10.0, PageRequest.of(0, 3));
     assertTrue(productPage.isEmpty());
   }
 
   @Test
-  void shouldExistByProductName() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Clothes shirt =
-        new Clothes(
-            1L,
-            19.99,
-            "Shirt",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            "Blue",
-            ClothesTypes.SizeTypes.MEDIUM,
-            ClothesTypes.MaterialTypes.COTTON,
-            ClothesTypes.Types.T_SHIRT);
-    vendorRepository.save(vendor);
+  void shouldShirtExistByProductName() {
+    vendorRepository.save(vendor1);
     productRepository.save(shirt);
-
     Boolean productExists = productRepository.existsByProductName("Shirt");
     assertTrue(productExists);
   }
 
   @Test
-  void shouldNotExistByProductName() {
-    Product.Dimensions dimensions = new Product.Dimensions(10.0, 5.0, 2.0);
-    Vendor vendor = new Vendor("TestVendor");
-    Electronics laptop =
-        new Electronics(
-            1L,
-            999.99,
-            "Laptop",
-            "Location",
-            10.0,
-            dimensions,
-            vendor,
-            600.0,
-            5.0,
-            120.0,
-            ElectronicsTypes.ConnectivityTypes.BOTH,
-            ElectronicsTypes.PowerSourceTypes.RECHARGEABLE,
-            ElectronicsTypes.CurrentTypes.DC,
-            ElectronicsTypes.Types.LAPTOP);
-    vendorRepository.save(vendor);
-    productRepository.save(laptop);
+  void shouldNotLaptop1ExistenceByFalseProductName() {
+    vendorRepository.save(vendor1);
+    productRepository.save(laptop1);
     Boolean productExists = productRepository.existsByProductName("Phone");
     assertFalse(productExists);
   }
