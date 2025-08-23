@@ -1,16 +1,14 @@
 package app.service;
 
+import app.model.Product;
+import app.model.Vendor;
+import app.repository.ProductRepository;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import app.model.Product;
-import app.model.Vendor;
-import app.repository.ProductRepository;
 
 @Service
 @Transactional
@@ -20,6 +18,10 @@ class ProductService {
   @Autowired
   public ProductService(ProductRepository productRepository) {
     this.productRepository = productRepository;
+  }
+
+  public <T extends Product> T createProduct(T product) {
+    return productRepository.save(product);
   }
 
   @Transactional(readOnly = true)
@@ -36,7 +38,7 @@ class ProductService {
   public Page<Product> findProductsByVendor(Vendor vendor, Pageable pageable) {
     return productRepository.findByVendor(vendor, pageable);
   }
-  
+
   @Transactional(readOnly = true)
   public Product findProductByVendorAndName(Vendor vendor, String productName) {
     return productRepository.findByVendorAndProductName(vendor, productName).orElse(null);
@@ -48,7 +50,8 @@ class ProductService {
   }
 
   @Transactional(readOnly = true)
-  public Page<Product> findProductsByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
+  public Page<Product> findProductsByPriceRange(
+      Double minPrice, Double maxPrice, Pageable pageable) {
     return productRepository.findAllByPriceBetween(minPrice, maxPrice, pageable);
   }
 
