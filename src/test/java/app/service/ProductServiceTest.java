@@ -1,5 +1,8 @@
 package app.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import app.model.Product;
 import app.model.Vendor;
 import app.model.category.Clothes;
@@ -9,23 +12,15 @@ import app.model.category.Food.NutritionValue;
 import app.model.category.types.ClothesTypes;
 import app.model.category.types.ElectronicsTypes;
 import app.model.category.types.FoodTypes;
-
-import org.springframework.context.annotation.Import;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.time.Instant;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
-
-import app.repository.VendorRepository;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -194,9 +189,11 @@ public class ProductServiceTest {
     productService.createProduct(milk2);
     productService.createProduct(milk3);
 
-    Page<Product> foundProducts = productService.findProductsByMinimumDiscount(20.0, Pageable.unpaged());
+    Page<Product> foundProducts =
+        productService.findProductsByMinimumDiscount(20.0, Pageable.unpaged());
     assertEquals(1, foundProducts.getTotalElements());
-    assertEquals(milk2.getProductIdentifier(), foundProducts.getContent().get(0).getProductIdentifier());
+    assertEquals(
+        milk2.getProductIdentifier(), foundProducts.getContent().get(0).getProductIdentifier());
   }
 
   @Test
@@ -205,7 +202,8 @@ public class ProductServiceTest {
     productService.createProduct(shirt);
     productService.createProduct(pants);
 
-    Page<Product> foundProducts = productService.findProductsByPriceRange(10.0, 20.0, Pageable.unpaged());
+    Page<Product> foundProducts =
+        productService.findProductsByPriceRange(10.0, 20.0, Pageable.unpaged());
     assertEquals(1, foundProducts.getTotalElements());
     assertEquals("Shirt", foundProducts.getContent().get(0).getProductName());
   }
@@ -218,7 +216,6 @@ public class ProductServiceTest {
 
     Page<Product> foundProducts = productService.findProductsByType("T_Shirt", Pageable.unpaged());
     assertEquals(1, foundProducts.getTotalElements());
-    // assertEquals("Shirt foundProducts.getContent().get(0).getProductName());
   }
 
   @Test
