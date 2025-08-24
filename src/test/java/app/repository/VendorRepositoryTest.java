@@ -20,61 +20,60 @@ class VendorRepositoryTest {
 
   @Autowired private VendorRepository vendors;
 
-  @Test
-  void shouldFindVendorByName() {
-    Vendor testVendor = new Vendor("TestVendor");
-    vendors.save(testVendor);
+  String vendorName1 = "TestVendor1";
+  String vendorName2 = "TestVendor2";
+  Vendor testVendor1 = new Vendor(vendorName1);
+  Vendor testVendor2 = new Vendor(vendorName2);
 
-    Optional<Vendor> vendor = vendors.findByVendorName("TestVendor");
+  @Test
+  void shouldFindTestVendor1ByVendorName1() {
+    vendors.save(testVendor1);
+
+    Optional<Vendor> vendor = vendors.findByVendorName(vendorName1);
     assertTrue(vendor.isPresent());
-    assertEquals(testVendor.getVendorName(), vendor.get().getVendorName());
-    assertEquals(testVendor.getVendorIdentifier(), vendor.get().getVendorIdentifier());
+    assertEquals(testVendor1.getVendorName(), vendor.get().getVendorName());
+    assertEquals(testVendor1.getVendorIdentifier(), vendor.get().getVendorIdentifier());
   }
 
   @Test
-  void shouldNotFindVendorByName() {
-    Vendor realVendor = new Vendor("RealVendor");
-    vendors.save(realVendor);
+  void shouldNotFindTestVendor2ByVendorName1() {
+    vendors.save(testVendor2);
 
-    Optional<Vendor> vendor = vendors.findByVendorName("TestVendor");
+    Optional<Vendor> vendor = vendors.findByVendorName(vendorName1);
     assertTrue(vendor.isEmpty());
   }
 
   @Test
-  void shouldFindVendorByIdentifier() {
-    Vendor testVendor = new Vendor("TestVendor");
-    vendors.save(testVendor);
+  void shouldFindTestVendor1ByTestVendor1Identifier() {
+    vendors.save(testVendor1);
 
-    Optional<Vendor> vendor = vendors.findByVendorIdentifier(testVendor.getVendorIdentifier());
+    Optional<Vendor> vendor = vendors.findByVendorIdentifier(testVendor1.getVendorIdentifier());
     assertTrue(vendor.isPresent());
-    assertEquals(testVendor.getVendorName(), vendor.get().getVendorName());
-    assertEquals(testVendor.getVendorIdentifier(), vendor.get().getVendorIdentifier());
+    assertEquals(testVendor1.getVendorName(), vendor.get().getVendorName());
+    assertEquals(testVendor1.getVendorIdentifier(), vendor.get().getVendorIdentifier());
   }
 
   @Test
-  void shouldNotFindVendorByIdentifier() {
-    Vendor realVendor = new Vendor("RealVendor");
-    vendors.save(realVendor);
+  void shouldNotFindTestVendor2ByRandomIdentifier() {
+    vendors.save(testVendor2);
 
     Optional<Vendor> vendor = vendors.findByVendorIdentifier(UUID.randomUUID());
     assertTrue(vendor.isEmpty());
   }
 
   @Test
-  void shouldFindExistingVendorByName() {
-    Vendor testVendor = new Vendor("TestVendor");
-    vendors.save(testVendor);
+  void shouldFindTestVendor1ExistenceByVendorName1() {
+    vendors.save(testVendor1);
 
-    Boolean exists = vendors.existsByVendorName("TestVendor");
+    Boolean exists = vendors.existsByVendorName(vendorName1);
     assertTrue(exists);
   }
 
   @Test
-  void shouldNotFindExistingVendorByName() {
-    Vendor realVendor = new Vendor("RealVendor");
-    vendors.save(realVendor);
+  void shouldNotFindTestVendor2ExistenceByVendorName1() {
+    vendors.save(testVendor2);
 
-    Boolean exists = vendors.existsByVendorName("TestVendor");
+    Boolean exists = vendors.existsByVendorName(vendorName1);
     assertFalse(exists);
   }
 }

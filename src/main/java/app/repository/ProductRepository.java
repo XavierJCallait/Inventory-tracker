@@ -24,4 +24,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
   Page<Product> findAllByDiscountGreaterThan(Double discount, Pageable pageable);
 
   Boolean existsByProductName(String productName);
+
+  Page<Product> findByType(String type, Pageable pageable);
 }
